@@ -1,4 +1,4 @@
-package clientes;
+package cliente;
 
 public class Vehiculo {
 

@@ -1,5 +1,5 @@
-package admin;
-import clientes.*;
+package taller_mecanica;
+import cliente.*;
 
 public class Mecanicos {
 	String nombre;
