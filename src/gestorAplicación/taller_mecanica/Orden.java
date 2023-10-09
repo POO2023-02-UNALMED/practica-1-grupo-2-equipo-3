@@ -12,6 +12,7 @@ public class Orden {
 	protected static int asignadorId = 1;
 	protected boolean estado;
 	protected int id;
+	protected int precio;
 	protected static int numOrdenes;
 	
 	public Orden(String tipo, Clientes cliente, Mecanicos mecanico, Administrador admin) {
