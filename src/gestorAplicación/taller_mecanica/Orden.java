@@ -1,6 +1,7 @@
 package taller_mecanica;
 import cliente.Clientes;
 import java.util.Date;
+import java.util.ArrayList;
 
 public class Orden {
 	
@@ -14,6 +15,7 @@ public class Orden {
 	protected int id;
 	protected int precio;
 	protected static int numOrdenes;
+	protected static ArrayList<Orden> ordenesTotales = new ArrayList<>();
 	
 	public Orden(String tipo, Clientes cliente, Mecanicos mecanico, Administrador admin) {
 		
@@ -23,6 +25,7 @@ public class Orden {
 		this.admin = admin;
 		this.id = Orden.asignadorId;
 		this.estado = false;
+		this.fecha = new Date();
 		Orden.asignadorId++;
 		Orden.numOrdenes++;
 		

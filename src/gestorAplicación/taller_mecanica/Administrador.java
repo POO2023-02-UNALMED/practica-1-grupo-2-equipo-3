@@ -7,10 +7,11 @@ public class Administrador {
 	protected ArrayList <Proveedor> proveedores = new ArrayList<>();
 	protected Inventario inventario;
 	protected ArrayList <Orden> ordenes = new ArrayList<>();
+	protected ArrayList <Mecanicos> mecanicosDisponibles = new ArrayList<>();
 	
 	public Administrador(String nombre, int id, Inventario inventario) {
 		this.nombre = nombre;
-		this.id = id;
+		this.id = id; 
 		this.inventario = inventario;
 	}
 
@@ -62,6 +63,16 @@ public class Administrador {
 		this.ordenes = ordenes;
 	}
 	
+	
+	
+	public ArrayList<Mecanicos> getMecanicosDisponibles() {
+		return mecanicosDisponibles;
+	}
+
+	public void setMecanicosDisponibles(ArrayList<Mecanicos> mecanicosDisponibles) {
+		this.mecanicosDisponibles = mecanicosDisponibles;
+	}
+
 	public void añadirMecanico(Mecanicos mecanico) {
 		this.mecanicos.add(mecanico);
 	}
@@ -94,17 +105,6 @@ public class Administrador {
 	
 	public Mecanicos asignarMecanico(String nombre) {
 		
-		ArrayList <Mecanicos> mecanicosDisponibles = new ArrayList<>();
-		for(int i = 0; i < this.mecanicos.size(); i++) {
-			
-			if (this.mecanicos.get(i).getServiciosMax() > 0) {
-				
-				mecanicosDisponibles.add(this.mecanicos.get(i));
-				
-				
-			}
-		}
-		
 		Mecanicos mecanicoElegido = mecanicosDisponibles.get(0);
 		for(int i = 0; i < mecanicosDisponibles.size(); i++) {
 			
@@ -121,6 +121,17 @@ public class Administrador {
 		
 	}
 	
+	public void verificarMecanicosDisponibles() {
+		
+		for(int i = 0; i < this.mecanicos.size(); i++) {
+			
+			if (this.mecanicos.get(i).getServiciosMax() > 0) {
+				
+				this.mecanicosDisponibles.add(this.mecanicos.get(i));
+				
+				}
+		}	
+	}
 	
 	
 	
