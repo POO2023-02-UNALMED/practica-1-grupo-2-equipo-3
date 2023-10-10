@@ -8,6 +8,7 @@ public class Mecanicos {
 	ArrayList<Clientes> clientes = new ArrayList<>();
 	Administrador administrador;
 	ArrayList<Orden> ordenes = new ArrayList<>();
+	byte serviciosMax = 5;
 	int salario;
 	int comisiones;
 	int calificacion;
@@ -110,6 +111,16 @@ public class Mecanicos {
 		Mecanicos.numMecanicos = numMecanicos;
 	}
 	
+	
+	
+	public byte getServiciosMax() {
+		return serviciosMax;
+	}
+
+	public void setServiciosMax(byte serviciosMax) {
+		this.serviciosMax = serviciosMax;
+	}
+
 	public Orden consultarOrden(int id) {
 			Orden orden = this.ordenes.get(0);
 			for (int i = 1; i < this.ordenes.size(); i++) {
@@ -121,6 +132,8 @@ public class Mecanicos {
 		}
 			return orden;
 	}
+	
+	
 	
 	
 	

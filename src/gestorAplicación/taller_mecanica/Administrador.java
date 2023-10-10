@@ -92,6 +92,35 @@ public class Administrador {
 		
 	}
 	
+	public Mecanicos asignarMecanico(String nombre) {
+		
+		ArrayList <Mecanicos> mecanicosDisponibles = new ArrayList<>();
+		for(int i = 0; i < this.mecanicos.size(); i++) {
+			
+			if (this.mecanicos.get(i).getServiciosMax() > 0) {
+				
+				mecanicosDisponibles.add(this.mecanicos.get(i));
+				
+				
+			}
+		}
+		
+		Mecanicos mecanicoElegido = mecanicosDisponibles.get(0);
+		for(int i = 0; i < mecanicosDisponibles.size(); i++) {
+			
+			if(mecanicosDisponibles.get(i).getNombre().equals(nombre)) {
+				
+				mecanicoElegido = mecanicosDisponibles.get(i);
+				
+			}
+		}
+		
+		return mecanicoElegido;
+		
+		
+		
+	}
+	
 	
 	
 	
