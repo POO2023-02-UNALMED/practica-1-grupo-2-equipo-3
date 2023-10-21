@@ -133,6 +133,12 @@ public class Mecanicos {
 			return orden;
 	}
 	
+	public void recibirComision(int comision) {
+		this.comisiones = this.comisiones + comision;
+	}
+	
+	
+	
 	
 	
 	

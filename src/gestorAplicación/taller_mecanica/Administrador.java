@@ -11,6 +11,7 @@ public class Administrador {
 	protected ArrayList <Orden> ordenes = new ArrayList<>();
 	protected ArrayList <Mecanicos> mecanicosDisponibles = new ArrayList<>();
 	
+	
 	public Administrador(String nombre, int id, Inventario inventario) {
 		this.nombre = nombre;
 		this.id = id; 
@@ -149,6 +150,24 @@ public class Administrador {
 		
 		return mecanicosTrabajando;
 	}
+	
+	public void darComision(String nombre) {
+		for(int i = 0; i < mecanicosDisponibles.size(); i++) {
+			
+			if (mecanicosDisponibles.get(i).getNombre() == nombre && mecanicosDisponibles.get(i).getAfinidad() == "Moto") {
+				
+				mecanicosDisponibles.get(i).recibirComision(10000);
+				
+			}
+			
+			else if (mecanicosDisponibles.get(i).getNombre() == nombre && mecanicosDisponibles.get(i).getAfinidad() == "Carro") {
+				
+				mecanicosDisponibles.get(i).recibirComision(8000);
+				
+			}
+			
+		}
+	}
  	
 	//Los print ahora los quito, era meramente para entender lo que estaba haciendo xd 
 	public void gestionFinanciera() {
@@ -271,6 +290,152 @@ public class Administrador {
 
 	private void generarResumenTotal() {
 		//ahora lo hago xd   	
+	}
+	
+	public void solicitarRepuestos(String categoria, String tipoDaño) {
+		
+		
+		
+	}
+	
+	public ArrayList<Proveedor> proveedoresDisponiblesRepuestosDeluxe(String tipo){
+		
+		ArrayList<Proveedor> proveedoresDisponibles = new ArrayList<>();
+		
+		if (tipo == "Motor") {
+			
+			for(int i = 0; i < this.proveedores.size(); i++) {
+			
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadMotor("Bujia")
+						&& this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadMotor("Filtro de aceite")){
+				
+					proveedoresDisponibles.add(this.proveedores.get(i));
+				
+				}
+			}
+		}
+		
+		else if (tipo == "Frenos") {
+			
+			for(int i = 0; i < this.proveedores.size(); i++) {
+			
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Pastilla de frenos") && 
+						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Liquido de frenos")){
+				
+					proveedoresDisponibles.add(this.proveedores.get(i));
+				
+				}
+			}
+		}
+		
+		else if (tipo == "Electrico") {
+			
+			for(int i = 0; i < this.proveedores.size(); i++) {
+			
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Bateria") &&
+						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Focos")){
+				
+					proveedoresDisponibles.add(this.proveedores.get(i));
+				
+				}
+			}
+		}
+		
+		else if (tipo == "Llantas") {
+	
+			for(int i = 0; i < this.proveedores.size(); i++) {
+	
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Valvula") &&
+						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Tapa de la valvula")){
+		
+					proveedoresDisponibles.add(this.proveedores.get(i));
+		
+				}
+			}
+		}
+		
+		else if (tipo == "Carroceria") {
+	
+			for(int i = 0; i < this.proveedores.size(); i++) {
+	
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Pintura") && 
+						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Espejos")){
+		
+					proveedoresDisponibles.add(this.proveedores.get(i));
+		
+				}
+			}
+		}
+		
+		return proveedoresDisponibles;
+	}
+	
+	
+	public ArrayList<Proveedor> proveedoresDisponiblesRepuestosDeluxe(String tipo, String clave){
+		
+		ArrayList<Proveedor> proveedoresDisponibles = new ArrayList<>();
+		
+		if (tipo == "Motor") {
+			
+			for(int i = 0; i < this.proveedores.size(); i++) {
+			
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadMotor(clave)){
+				
+					proveedoresDisponibles.add(this.proveedores.get(i));
+				
+				}
+			}
+		}
+		
+		else if (tipo == "Frenos") {
+			
+			for(int i = 0; i < this.proveedores.size(); i++) {
+			
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos(clave)){
+				
+					proveedoresDisponibles.add(this.proveedores.get(i));
+				
+				}
+			}
+		}
+		
+		else if (tipo == "Electrico") {
+			
+			for(int i = 0; i < this.proveedores.size(); i++) {
+			
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico(clave)){
+				
+					proveedoresDisponibles.add(this.proveedores.get(i));
+				
+				}
+			}
+		}
+		
+		else if (tipo == "Llantas") {
+	
+			for(int i = 0; i < this.proveedores.size(); i++) {
+	
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas(clave)){
+		
+					proveedoresDisponibles.add(this.proveedores.get(i));
+		
+				}
+			}
+		}
+		
+		else if (tipo == "Carroceria") {
+	
+			for(int i = 0; i < this.proveedores.size(); i++) {
+	
+				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria(clave)){
+		
+					proveedoresDisponibles.add(this.proveedores.get(i));
+		
+				}
+			}
+		}
+		
+		return proveedoresDisponibles;
 	}
 
 	

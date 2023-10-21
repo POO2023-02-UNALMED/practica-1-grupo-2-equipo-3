@@ -36,6 +36,10 @@ public class Orden {
 		
 	}
 	
+	public Orden(String tipo) {
+		this(tipo, null, null, null, null);
+	}
+	
 	public String completarOrden() {
 		if (this.estado == false) {
 			this.estado = true;
@@ -165,6 +169,25 @@ public class Orden {
 				
 	}
 	
+
+	public String resumenOrdenRepuestos(String tipoDañoRepuesto, String repuesto1) {
+		
+		return "Orden: " + this.getTipo() + "\n" +
+				"Fecha: " + this.getFecha() + "\n" +
+				"OrdenId: " + this.getId() + "\n" +
+				"Repuesto usado para: " + tipoDañoRepuesto + "\n" + 
+				"Repuesto: " + repuesto1 + "\n" +
+				"Precio: " + this.getPrecio();
+	}
 	
+public String resumenOrdenRepuestos(String tipoDañoRepuesto, String repuesto1, String repuesto2) {
+		
+		return "Orden: " + this.getTipo() + "\n" +
+				"Fecha: " + this.getFecha() + "\n" +
+				"OrdenId: " + this.getId() + "\n" +
+				"Repuesto usado para: " + tipoDañoRepuesto + "\n" + 
+				"Repuesto: " + repuesto1 + ", " + repuesto2 + "\n" +
+				"Precio: " + this.getPrecio();
+	}
 
 }
