@@ -135,17 +135,104 @@ public class RepuestoDeluxe extends Repuestos {
 
 
 
-	@Override
-	public void aumentarPrecio() {
-		// TODO Auto-generated method stub
+	public void aumentarPrecio(int aumento, String tipo) {
+		if (tipo == "Motor" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosMotor.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor + aumento;
+		            repuestosMotor.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Frenos" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosFrenos.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor + aumento;
+		            repuestosFrenos.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Electrico" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosElectrico.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor + aumento;
+		            repuestosElectrico.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Llantas" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosLlantas.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor + aumento;
+		            repuestosLlantas.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Carroceria" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosCarroceria.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor + aumento;
+		            repuestosCarroceria.put(clave, valor);
+		        }
+			
+		}
+		
+		
 		
 	}
 
-
-
-	@Override
-	public void disminuirPrecio() {
-		// TODO Auto-generated method stub
+	
+	public void disminuirPrecio(int aumento, String tipo) {
+		if (tipo == "Motor" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosMotor.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor - aumento;
+		            repuestosMotor.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Frenos" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosFrenos.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor - aumento;
+		            repuestosFrenos.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Electrico" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosElectrico.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor - aumento;
+		            repuestosElectrico.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Llantas" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosLlantas.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor - aumento;
+		            repuestosLlantas.put(clave, valor);
+		        }
+			
+		}
+		else if (tipo == "Carroceria" ) {
+			 for (Map.Entry<String, Integer> entry : repuestosCarroceria.entrySet()) {
+		            String clave = entry.getKey();
+		            int valor = entry.getValue();
+		            valor = valor - aumento;
+		            repuestosCarroceria.put(clave, valor);
+		        }
+			
+		}
 		
 	}
 }

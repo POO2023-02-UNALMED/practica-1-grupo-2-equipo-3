@@ -31,6 +31,7 @@ public class Orden {
 		this.vehiculo = vehiculo;
 		Orden.asignadorId++;
 		Orden.numOrdenes++;
+		this.mecanico.getOrdenes().add(this);
 		
 		
 	}
@@ -156,7 +157,10 @@ public class Orden {
 			   "Cliente: " + this.getCliente().getNombre() + "\n" +
 			   "Mecanico: " + this.getMecanico().getNombre() + "\n" +
 			   "OrdenId: " + this.getId() + "\n" + 
-			   "Tipo de daño: " + this.getVehiculo().getTipoDeDanio().getTipo();
+			   "Tipo de daño: " + this.getVehiculo().getTipoDeDanio().getTipo() + "\n" +
+			   "Repuesto: " + this.getRepuesto() + "\n" +			   
+			   "Precio: " + this.getPrecio();
+		
 			   
 				
 	}

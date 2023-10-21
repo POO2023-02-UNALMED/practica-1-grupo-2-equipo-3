@@ -133,6 +133,21 @@ public class Administrador {
 		}	
 	}
 	
+	public ArrayList<Mecanicos> mecanicosTrabajando(){
+		
+		ArrayList<Mecanicos> mecanicosTrabajando = new ArrayList<>();
+		
+		for (int i = 0; i < mecanicos.size(); i++) {
+			
+			if(mecanicos.get(i).getOrdenes().isEmpty() != true) {
+				
+				mecanicosTrabajando.add(mecanicos.get(i));
+			}
+		}
+		
+		return mecanicosTrabajando;
+	}
+ 	
 	
 	
 	

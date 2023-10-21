@@ -106,7 +106,11 @@ public class Clientes {
 		}
 	}
 	
-	public void asignarVehiculo(String tipo) {
+	public void asignarVehiculo(Vehiculo vehiculo) {
+		
+		this.vehiculos.add(vehiculo);
+		
+		
 		
 		
 	}

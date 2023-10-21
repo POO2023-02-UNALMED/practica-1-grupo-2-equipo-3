@@ -10,8 +10,8 @@ public abstract class Repuestos {
 	public abstract boolean verificarDisponibilidadCarroceria(String clave);
 	public abstract void verificarCantidades();
 	public abstract ArrayList<String> repuestosDisponibles(String tipo);
-	public abstract void aumentarPrecio();
-	public abstract void disminuirPrecio();
+	public abstract void aumentarPrecio(int aumento, String tipo);
+	public abstract void disminuirPrecio(int aumento, String tipo);
 	
 	
 	
