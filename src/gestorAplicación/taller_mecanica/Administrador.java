@@ -1,5 +1,7 @@
 package taller_mecanica;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Administrador {
 	protected String nombre;
 	protected int id;
@@ -148,6 +150,129 @@ public class Administrador {
 		return mecanicosTrabajando;
 	}
  	
+	//Los print ahora los quito, era meramente para entender lo que estaba haciendo xd 
+	public void gestionFinanciera() {
+	    Scanner scanner = new Scanner(System.in);
+	    int opcion = -1;
+	    
+	    while(opcion != 0) {
+	    System.out.println("¿Qué deseas hacer?");
+	    System.out.println("1. Generar resumen del servicio con más ingresos");
+	    System.out.println("2. Generar resumen del servicio con menos ingresos");
+	    System.out.println("3. Generar resumen total");
+	    opcion = scanner.nextInt();
+	    
+	    switch (opcion) {
+	        case 1:
+	            generarResumenMasIngresos();
+	            break;
+	        case 2:
+	            generarResumenMenosIngresos();
+	            break;
+	        case 3:
+	            generarResumenTotal();
+	            break;
+	        default:
+	            System.out.println("Opción no válida. Por favor, ingresa 1, 2 o 3.");
+	            break;
+	    }
+	    }
+	    scanner.close();
+	}
+
+	private void generarResumenMasIngresos() {
+	    
+	    Orden ordenMasRentable = Orden.ordenesTotales.stream()
+	        .max((orden1, orden2) -> orden1.getPrecio() - orden2.getPrecio())
+	        .orElse(null);
+
+	    if (ordenMasRentable != null) {
+	        System.out.println("Felicitaciones, tu orden más rentable fue: " + ordenMasRentable.getTipo());
+	        System.out.println("¿Qué deseas hacer?");
+	        System.out.println("1. Subir precio del servicio");
+	        System.out.println("2. Aumentar precio de repuestos");
+	        System.out.println("3. Dar bonificación a empleados");
+
+	        Scanner scanner = new Scanner(System.in);
+	        
+	        int opcion = scanner.nextInt();
+
+	        switch (opcion) {
+	            case 1:
+	                System.out.println("Ingresa el aumento de precio para el servicio:");
+	                int aumento = scanner.nextInt();
+	                ordenMasRentable.setPrecio(ordenMasRentable.getPrecio() + aumento);
+	                break;
+	            case 2:
+	                //explicame esta vuelta 
+	                break;
+	            case 3:
+	                System.out.println("Ingresa la bonificación para los empleados:");
+	                int bonificacion = scanner.nextInt();
+	                
+	                for (Mecanicos mecanico : ordenMasRentable.getAdmin().getMecanicos()) {
+	                    mecanico.setComisiones(mecanico.getComisiones() + bonificacion);
+	                }
+	                break;
+	            default:
+	                System.out.println("Opción no válida.");
+	                break;
+	        }
+	    }
+	}
+
+	private void generarResumenMenosIngresos() {
+	    Orden ordenMenosRentable = Orden.ordenesTotales.stream()
+	        .min((orden1, orden2) -> orden1.getPrecio() - orden2.getPrecio())
+	        .orElse(null);
+
+	    if (ordenMenosRentable != null) {
+	        System.out.println("Tu orden menos rentable fue: " + ordenMenosRentable.getTipo());
+	        System.out.println("¿Qué deseas hacer?");
+	        System.out.println("1. Disminuir precio del servicio");
+	        System.out.println("2. Disminuir precio de repuestos");
+	        System.out.println("3. Disminuir la comisión de los mecánicos");
+
+	        Scanner scanner = new Scanner(System.in);
+	        int opcion = scanner.nextInt();
+
+	        switch (opcion) {
+	            case 1:
+	                System.out.println("Ingresa la disminución de precio para el servicio:");
+	                int disminucion = scanner.nextInt();
+	                int nuevoPrecio = ordenMenosRentable.getPrecio() - disminucion;
+	                if (nuevoPrecio >= 0) {
+	                    ordenMenosRentable.setPrecio(nuevoPrecio);
+	                } else {
+	                    System.out.println("El nuevo precio no puede ser menor que 0.");
+	                }
+	                break;
+	            case 2:
+	                // ahora lo hago xd, explicame esta vuelta x2
+	                break;
+	            case 3:
+	                System.out.println("Ingresa la reducción de comisión para los mecánicos:");
+	                int reduccion = scanner.nextInt();
+	                for (Mecanicos mecanico : ordenMenosRentable.getAdmin().getMecanicos()) {
+	                    int nuevaComision = mecanico.getComisiones() - reduccion;
+	                    if (nuevaComision >= 0) {
+	                        mecanico.setComisiones(nuevaComision);
+	                    } else {
+	                        System.out.println("La comisión no puede ser menor que 0.");
+	                    }
+	                }
+	                break;
+	            default:
+	                System.out.println("Opción no válida.");
+	                break;
+	        }
+	    }
+	}
+
+	private void generarResumenTotal() {
+		//ahora lo hago xd   	
+	}
+
 	
 	
 	
