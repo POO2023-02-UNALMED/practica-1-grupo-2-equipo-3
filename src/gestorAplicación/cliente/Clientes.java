@@ -97,11 +97,11 @@ public class Clientes {
 		
 		if (vehiculo.toString().equals("Carro")) {
 			
-			this.ordenes.add(new Orden("Carro", this, mecanico, admin));
+			this.ordenes.add(new Orden("Carro", this, mecanico, admin, vehiculo));
 		}
 		if (vehiculo.toString().equals("Moto")) {
 			
-			this.ordenes.add(new Orden("Moto", this, mecanico, admin));
+			this.ordenes.add(new Orden("Moto", this, mecanico, admin, vehiculo));
 			
 		}
 	}

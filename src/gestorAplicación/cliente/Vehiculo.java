@@ -11,7 +11,7 @@ public class Vehiculo {
     Clientes dueno;
     static String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     static Set<String> placas = new HashSet<>();
-
+    
     public Vehiculo(String tipo, Clientes dueno) {
         this.tipo = tipo;
         this.dueno = dueno;
@@ -45,8 +45,16 @@ public class Vehiculo {
         return tipoDeDanio;
     }
 
-    public void setTipoDeDanio(TipoDaño tipoDeDanio) {
-        this.tipoDeDanio = tipoDeDanio;
+    public void setTipoDeDanio(String tipo) {
+        TipoDaño Tipo = TipoDaño.tiposDeDaño.get(0);
+        
+        for(int i = 0; i < TipoDaño.tiposDeDaño.size(); i++) {
+        	if (tipo == TipoDaño.tiposDeDaño.get(i).getTipo()) {
+        		Tipo = TipoDaño.tiposDeDaño.get(i);
+        	}
+        }
+        this.tipoDeDanio = Tipo;
+        
     }
 
     public Clientes getDueno() {

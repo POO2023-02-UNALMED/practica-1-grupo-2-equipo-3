@@ -3,14 +3,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TipoDaño {
-    ArrayList<Vehiculo> vehiculos;
-    static ArrayList<String> dañosCarro = 
-        new ArrayList<>(Arrays.asList("Motor", "Carrocería", "Frenos", "Amortiguadores", "LLantas"));
+    ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+    static ArrayList<TipoDaño> tiposDeDaño = new ArrayList<>();
     String tipo;
 
-    public TipoDaño() {
-        vehiculos = new ArrayList<>();
-        tipo = "";
+    public TipoDaño(String tipo) {
+    	
+    	this.tipo = tipo;
+    	TipoDaño.tiposDeDaño.add(this);
+    	
+        
     }
 
     public TipoDaño(Vehiculo vehiculo, String tipo) {

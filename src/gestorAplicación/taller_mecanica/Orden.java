@@ -1,5 +1,5 @@
 package taller_mecanica;
-import cliente.Clientes;
+import cliente.*;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -10,14 +10,16 @@ public class Orden {
 	protected Clientes cliente;
 	protected Mecanicos mecanico;
 	protected Administrador admin;
+	protected String repuesto;
 	protected static int asignadorId = 1;
 	protected boolean estado;
+	protected Vehiculo vehiculo;
 	protected int id;
 	protected int precio;
 	protected static int numOrdenes;
 	protected static ArrayList<Orden> ordenesTotales = new ArrayList<>();
 	
-	public Orden(String tipo, Clientes cliente, Mecanicos mecanico, Administrador admin) {
+	public Orden(String tipo, Clientes cliente, Mecanicos mecanico, Administrador admin, Vehiculo vehiculo) {
 		
 		this.tipo = tipo;
 		this.cliente = cliente;
@@ -26,8 +28,10 @@ public class Orden {
 		this.id = Orden.asignadorId;
 		this.estado = false;
 		this.fecha = new Date();
+		this.vehiculo = vehiculo;
 		Orden.asignadorId++;
 		Orden.numOrdenes++;
+		
 		
 	}
 	
@@ -104,8 +108,58 @@ public class Orden {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public String getRepuesto() {
+		return repuesto;
+	}
+
+	public void setRepuesto(String repuesto) {
+		this.repuesto = repuesto;
+	}
+
+	public int getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+
+	public static int getNumOrdenes() {
+		return numOrdenes;
+	}
+
+	public static void setNumOrdenes(int numOrdenes) {
+		Orden.numOrdenes = numOrdenes;
+	}
+
+	public static ArrayList<Orden> getOrdenesTotales() {
+		return ordenesTotales;
+	}
+
+	public static void setOrdenesTotales(ArrayList<Orden> ordenesTotales) {
+		Orden.ordenesTotales = ordenesTotales;
+	}
 	
 	
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
+	}
+
+	public String resumenOrden() {
+		return "Orden: " + this.getTipo() + "\n" +
+			   "Fecha: " + this.getFecha() + "\n" +
+			   "Cliente: " + this.getCliente().getNombre() + "\n" +
+			   "Mecanico: " + this.getMecanico().getNombre() + "\n" +
+			   "OrdenId: " + this.getId() + "\n" + 
+			   "Tipo de daño: " + this.getVehiculo().getTipoDeDanio().getTipo();
+			   
+				
+	}
 	
 	
 
