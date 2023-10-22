@@ -1,7 +1,10 @@
 package cliente;
 import taller_mecanica.*;
 import java.util.ArrayList;
-public class Clientes {
+import java.util.Scanner;
+
+
+public class Clientes implements CalificaciónMecanico {
 	
 	protected String nombre;
 	protected int id;
@@ -110,11 +113,53 @@ public class Clientes {
 		
 		this.vehiculos.add(vehiculo);
 		
-		
-		
-		
-	}
-			
+		}
 	
+	
+	//Encuesta 
+	@Override
+	public Mecanicos mecanicosActivosCliente(){
+	    System.out.println("Mecánicos que han trabajado en tus órdenes:");
+	    Scanner scanner = new Scanner(System.in);
+	    int i = 1;
+	    for (Orden orden : this.ordenes) {
+	        Mecanicos mecanico = orden.getMecanico();
+	        System.out.println(i + ". " + mecanico.getNombre());
+	        i++;
+	    }
+	    int seleccion = scanner.nextInt();
+	    
+	    scanner.close();
+	    return this.ordenes.get(seleccion - 1).getMecanico();
+	    }
+	
+	
+	
+	@Override
+	public void calificarMecanico(Mecanicos mecanico, int calificacion) {
+	    mecanico.getCalificaciones().add(calificacion);
+	    int sumaCalificaciones = mecanico.getCalificaciones().stream()
+	            .mapToInt(Integer::intValue)
+	            .sum();
+	    
+	    int cantidadCalificaciones = mecanico.getCalificaciones().size();
+	    int promedio = sumaCalificaciones / cantidadCalificaciones;
+
+	    mecanico.setCalificacion(promedio);
+	}
+
+
+	@Override
+	public void dejarComisionMecanico(Mecanicos mecanico, int comision) {
+		mecanico.setComisiones(mecanico.getComisiones()+ comision);
+	}
+	
+	@Override
+	public void despedirporEncuesta(Mecanicos mecanico){
+		if(mecanico.getCalificaciones().size() >= 3 && mecanico.getCalificacion() <= 1 ){
+			Administrador administrador = mecanico.getAdministrador();
+            administrador.despedir(mecanico);
+		}
+	}
 
 }
