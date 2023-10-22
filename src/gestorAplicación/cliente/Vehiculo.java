@@ -68,4 +68,15 @@ public class Vehiculo {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+    
+    public void falloMecanico() {
+    	
+    	Random rand = new Random();
+    	int numeroAleatorio = rand.nextInt(5);
+    	
+    	this.tipoDeDanio = TipoDaño.tiposDeDaño.get(numeroAleatorio);
+    			
+    	
+    	
+    }
 }

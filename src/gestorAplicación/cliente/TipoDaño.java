@@ -1,18 +1,26 @@
 package cliente;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Arrays;
 
 public class TipoDaño {
     ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     static ArrayList<TipoDaño> tiposDeDaño = new ArrayList<>();
     String tipo;
+    int clave;
 
     public TipoDaño(String tipo) {
     	
-    	this.tipo = tipo;
+    	this(tipo,12345);
     	TipoDaño.tiposDeDaño.add(this);
     	
         
+    }
+    
+    public TipoDaño(String tipo, int clave) {
+    	this.tipo = tipo;
+    	this.clave = clave;
+    	
     }
 
     public TipoDaño(Vehiculo vehiculo, String tipo) {
@@ -35,4 +43,6 @@ public class TipoDaño {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+    
+    
 }

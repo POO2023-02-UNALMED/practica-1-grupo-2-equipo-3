@@ -6,24 +6,12 @@ import java.util.Map;
 
 public class RepuestoGenerico extends Repuestos{
 	
-	protected Map<String, Integer> repuestosMotor = new HashMap<>();
-	protected Map<String, Integer> repuestosFrenos = new HashMap<>();
-	protected Map<String, Integer> repuestosElectrico = new HashMap<>();
-	protected Map<String, Integer> repuestosLlantas = new HashMap<>();
-	protected Map<String, Integer> repuestosCarroceria = new HashMap<>();
-	protected Proveedor proveedor;
-
+	Proveedor proveedor;
 	public RepuestoGenerico() {
-		repuestosMotor.put("Bujia", 0);
-		repuestosMotor.put("Filtro de aceite", 0);
-		repuestosFrenos.put("Pastilla de frenos", 0);
-		repuestosFrenos.put("Liquido de frenos", 0);
-		repuestosElectrico.put("Bateria", 0);
-		repuestosElectrico.put("Focos", 0);
-		repuestosLlantas.put("Valvula", 0);
-		repuestosLlantas.put("Tapa de la valvula", 0);
-		repuestosCarroceria.put("Pintura", 0);
-		repuestosCarroceria.put("Espejos", 0);
+		super();
+	}
+	public RepuestoGenerico(Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
 	
 	public boolean verificarDisponibilidadMotor(String clave) {
@@ -84,46 +72,40 @@ public class RepuestoGenerico extends Repuestos{
 
 
 
-	@Override
-	public void verificarCantidades() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 
 	
 	public ArrayList<String> repuestosDisponibles(String tipo) {
 		ArrayList<String> repuestos = new ArrayList<>();
-		if (tipo == "Motor" ) {
+		if (tipo .equals("Motor")) {
 			 for (Map.Entry<String, Integer> entry : repuestosMotor.entrySet()) {
 		            String clave = entry.getKey();
 		            repuestos.add(clave);
 		        }
 			
 		}
-		else if (tipo == "Frenos" ) {
+		else if (tipo.equals("Frenos")) {
 			 for (Map.Entry<String, Integer> entry : repuestosFrenos.entrySet()) {
 		            String clave = entry.getKey();
 		            repuestos.add(clave);
 		        }
 			
 		}
-		else if (tipo == "Electrico" ) {
+		else if (tipo.equals("Electrico")) {
 			 for (Map.Entry<String, Integer> entry : repuestosElectrico.entrySet()) {
 		            String clave = entry.getKey();
 		            repuestos.add(clave);
 		        }
 			
 		}
-		else if (tipo == "Llantas" ) {
+		else if (tipo.equals("Llantas")) {
 			 for (Map.Entry<String, Integer> entry : repuestosLlantas.entrySet()) {
 		            String clave = entry.getKey();
 		            repuestos.add(clave);
 		        }
 			
 		}
-		else if (tipo == "Carroceria" ) {
+		else if (tipo.equals("Carroceria")) {
 			 for (Map.Entry<String, Integer> entry : repuestosCarroceria.entrySet()) {
 		            String clave = entry.getKey();
 		            repuestos.add(clave);
@@ -137,7 +119,7 @@ public class RepuestoGenerico extends Repuestos{
 
 	
 	public void aumentarPrecio(int aumento, String tipo) {
-		if (tipo == "Motor" ) {
+		if (tipo.equals("Motor")) {
 			 for (Map.Entry<String, Integer> entry : repuestosMotor.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -146,7 +128,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Frenos" ) {
+		else if (tipo.equals("Frenos")) {
 			 for (Map.Entry<String, Integer> entry : repuestosFrenos.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -155,7 +137,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Electrico" ) {
+		else if (tipo.equals("Electrico")) {
 			 for (Map.Entry<String, Integer> entry : repuestosElectrico.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -164,7 +146,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Llantas" ) {
+		else if (tipo.equals("Llantas")) {
 			 for (Map.Entry<String, Integer> entry : repuestosLlantas.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -173,7 +155,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Carroceria" ) {
+		else if (tipo.equals("Carroceria")) {
 			 for (Map.Entry<String, Integer> entry : repuestosCarroceria.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -189,7 +171,7 @@ public class RepuestoGenerico extends Repuestos{
 
 	
 	public void disminuirPrecio(int aumento, String tipo) {
-		if (tipo == "Motor" ) {
+		if (tipo.equals("Motor")) {
 			 for (Map.Entry<String, Integer> entry : repuestosMotor.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -198,7 +180,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Frenos" ) {
+		else if (tipo.equals("Frenos")) {
 			 for (Map.Entry<String, Integer> entry : repuestosFrenos.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -207,7 +189,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Electrico" ) {
+		else if (tipo.equals("Electrico")) {
 			 for (Map.Entry<String, Integer> entry : repuestosElectrico.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -216,7 +198,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Llantas" ) {
+		else if (tipo.equals("Llantas")) {
 			 for (Map.Entry<String, Integer> entry : repuestosLlantas.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -225,7 +207,7 @@ public class RepuestoGenerico extends Repuestos{
 		        }
 			
 		}
-		else if (tipo == "Carroceria" ) {
+		else if (tipo.equals("Carroceria")) {
 			 for (Map.Entry<String, Integer> entry : repuestosCarroceria.entrySet()) {
 		            String clave = entry.getKey();
 		            int valor = entry.getValue();
@@ -236,5 +218,54 @@ public class RepuestoGenerico extends Repuestos{
 		}
 		
 	}
+
+	public Map<String, Integer> getRepuestosMotor() {
+		return repuestosMotor;
+	}
+
+	public void setRepuestosMotor(Map<String, Integer> repuestosMotor) {
+		this.repuestosMotor = repuestosMotor;
+	}
+
+	public Map<String, Integer> getRepuestosFrenos() {
+		return repuestosFrenos;
+	}
+
+	public void setRepuestosFrenos(Map<String, Integer> repuestosFrenos) {
+		this.repuestosFrenos = repuestosFrenos;
+	}
+
+	public Map<String, Integer> getRepuestosElectrico() {
+		return repuestosElectrico;
+	}
+
+	public void setRepuestosElectrico(Map<String, Integer> repuestosElectrico) {
+		this.repuestosElectrico = repuestosElectrico;
+	}
+
+	public Map<String, Integer> getRepuestosLlantas() {
+		return repuestosLlantas;
+	}
+
+	public void setRepuestosLlantas(Map<String, Integer> repuestosLlantas) {
+		this.repuestosLlantas = repuestosLlantas;
+	}
+
+	public Map<String, Integer> getRepuestosCarroceria() {
+		return repuestosCarroceria;
+	}
+
+	public void setRepuestosCarroceria(Map<String, Integer> repuestosCarroceria) {
+		this.repuestosCarroceria = repuestosCarroceria;
+	}
+
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+	
 
 }

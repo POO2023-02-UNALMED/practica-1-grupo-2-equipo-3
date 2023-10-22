@@ -292,12 +292,78 @@ public class Administrador {
 		//ahora lo hago xd   	
 	}
 	
-	public void solicitarRepuestos(String categoria, String tipoDaño) {
+	public void solicitarRepuestos(String categoria, String tipo, String repuesto, int cantidad) {
 		
+		if (categoria.equals("Deluxe")) {
+			
+			if (tipo.equals("Motor")) {
+				
+				for(int i = 0; i < this.proveedores.size(); i++) {
+				
+					int valor = this.getInventario().getRepuestosDeluxe().getRepuestosMotor().get(repuesto);
+					valor = valor + cantidad;
+						
+					
+					}
+				}
+			}
+			
+			else if (tipo.equals("Frenos")) {
+				
+				for(int i = 0; i < this.proveedores.size(); i++) {
+				
+					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Pastilla de frenos") && 
+							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Liquido de frenos")){
+					
+						
+					
+					}
+				}
+			}
+			
+			else if (tipo.equals("Electrico")) {
+				
+				for(int i = 0; i < this.proveedores.size(); i++) {
+				
+					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Bateria") &&
+							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Focos")){
+					
+						
+					
+					}
+				}
+			}
+			
+			else if (tipo.equals("Llantas")) {
 		
+				for(int i = 0; i < this.proveedores.size(); i++) {
 		
-	}
-	
+					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Valvula") &&
+							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Tapa de la valvula")){
+			
+						
+			
+					}
+				}
+			}
+			
+			else if (tipo.equals("Carroceria")) {
+		
+				for(int i = 0; i < this.proveedores.size(); i++) {
+		
+					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Pintura") && 
+							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Espejos")){
+			
+						
+			
+					}
+				}
+			}
+		
+			
+			
+		}
+		
 	public ArrayList<Proveedor> proveedoresDisponiblesRepuestosDeluxe(String tipo){
 		
 		ArrayList<Proveedor> proveedoresDisponibles = new ArrayList<>();
