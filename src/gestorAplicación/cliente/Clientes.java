@@ -118,20 +118,20 @@ public class Clientes implements CalificaciónMecanico {
 	
 	//Encuesta 
 	@Override
-	public Mecanicos mecanicosActivosCliente(){
+	public Mecanicos mecanicoSeleccionado(int seleccion){
+		return this.ordenes.get(seleccion - 1).getMecanico();
+	}
+	
+	@Override
+	public void mecanicosActivosCliente(){
 	    System.out.println("Mecánicos que han trabajado en tus órdenes:");
-	    Scanner scanner = new Scanner(System.in);
 	    int i = 1;
 	    for (Orden orden : this.ordenes) {
 	        Mecanicos mecanico = orden.getMecanico();
 	        System.out.println(i + ". " + mecanico.getNombre());
 	        i++;
 	    }
-	    int seleccion = scanner.nextInt();
-	    
-	    scanner.close();
-	    return this.ordenes.get(seleccion - 1).getMecanico();
-	    }
+	   }
 	
 	
 	
@@ -155,11 +155,15 @@ public class Clientes implements CalificaciónMecanico {
 	}
 	
 	@Override
-	public void despedirporEncuesta(Mecanicos mecanico){
+	public void despedirporEncuesta(Mecanicos mecanico, Administrador administrador){
 		if(mecanico.getCalificaciones().size() >= 3 && mecanico.getCalificacion() <= 1 ){
-			Administrador administrador = mecanico.getAdministrador();
             administrador.despedir(mecanico);
 		}
 	}
-
+	@Override
+	public void premiarPorEncuesta(Mecanicos mecanico, Administrador administrador){
+		if(mecanico.getCalificaciones().size() >= 3 && mecanico.getCalificacion() >= 4 ){
+            mecanico.setComisiones(mecanico.getComisiones() + 10000);
+		}
+	}
 }
