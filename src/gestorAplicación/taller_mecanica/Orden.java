@@ -180,7 +180,7 @@ public class Orden {
 				"Precio: " + this.getPrecio();
 	}
 	
-public String resumenOrdenRepuestos(String tipoDañoRepuesto, String repuesto1, String repuesto2) {
+	public String resumenOrdenRepuestos(String tipoDañoRepuesto, String repuesto1, String repuesto2) {
 		
 		return "Orden: " + this.getTipo() + "\n" +
 				"Fecha: " + this.getFecha() + "\n" +
@@ -189,5 +189,9 @@ public String resumenOrdenRepuestos(String tipoDañoRepuesto, String repuesto1, 
 				"Repuesto: " + repuesto1 + ", " + repuesto2 + "\n" +
 				"Precio: " + this.getPrecio();
 	}
+	
+	
+
+	
 
 }

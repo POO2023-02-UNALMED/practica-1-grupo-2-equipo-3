@@ -95,18 +95,20 @@ public class Clientes implements CalificaciónMecanico {
 	}
 	
 	
-	public void crearOrden(Vehiculo vehiculo, Mecanicos mecanico, Administrador admin, int precio) {
+	public Orden crearOrden(Vehiculo vehiculo, Mecanicos mecanico, Administrador admin, int precio) {
 		
-		
+		Orden orden = null;
 		if (vehiculo.toString().equals("Carro")) {
-			
-			this.ordenes.add(new Orden("Carro", this, mecanico, admin, vehiculo, precio));
+			orden = new Orden("Carro", this, mecanico, admin, vehiculo, precio);
+			this.ordenes.add(orden);
 		}
 		if (vehiculo.toString().equals("Moto")) {
 			
-			this.ordenes.add(new Orden("Moto", this, mecanico, admin, vehiculo, precio));
+			orden = new Orden("Moto", this, mecanico, admin, vehiculo, precio);
+			this.ordenes.add(orden);
 			
 		}
+		return orden;
 	}
 	
 	public void asignarVehiculo(Vehiculo vehiculo) {
@@ -165,5 +167,11 @@ public class Clientes implements CalificaciónMecanico {
 		if(mecanico.getCalificaciones().size() >= 3 && mecanico.getCalificacion() >= 4 ){
             mecanico.setComisiones(mecanico.getComisiones() + 10000);
 		}
+	}
+	
+	public void pagar(int precio) {
+		this.cartera = cartera - precio;
+		this.ordenes.get(0).getAdmin().getInventario().recibirDinero(precio);
+		
 	}
 }

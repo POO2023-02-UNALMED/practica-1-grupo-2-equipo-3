@@ -1,5 +1,7 @@
 package taller_mecanica;
-
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
 public class Inventario {
 	protected Administrador admin;
 	protected RepuestoDeluxe repuestosDeluxe;
@@ -22,6 +24,8 @@ public class Inventario {
 		this.repuestosGenericos = repuestosGenericos;
 		
 	}
+	
+	
 
 	public Administrador getAdmin() {
 		return admin;
@@ -70,6 +74,130 @@ public class Inventario {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+	
+	public  Set<String> consultarRepuestos(String categoria, String tipo){
+		Set<String> claves = this.getRepuestosDeluxe().getRepuestosCarroceria().keySet();
+		if (categoria.equals("Deluxe")) {
+			if(tipo.equals("Motor")) {
+				claves = this.getRepuestosDeluxe().getRepuestosMotor().keySet();
+			}
+			else if(tipo.equals("Frenos")) {
+				claves = this.getRepuestosDeluxe().getRepuestosFrenos().keySet();
+				
+			}
+			else if(tipo.equals("Electrico")) {
+				claves = this.getRepuestosDeluxe().getRepuestosElectrico().keySet();
+				
+			}
+			else if(tipo.equals("Llantas")) {
+				claves = this.getRepuestosDeluxe().getRepuestosLlantas().keySet();
+				
+			}
+			else if(tipo.equals("Carroceria")) {
+				claves = this.getRepuestosDeluxe().getRepuestosCarroceria().keySet();
+				
+			}
+		}
+		 else if (categoria.equals("Generico")) {
+			if(tipo.equals("Motor")) {
+				claves = this.getRepuestosGenericos().getRepuestosMotor().keySet();
+			}
+			else if(tipo.equals("Frenos")) {
+				claves = this.getRepuestosGenericos().getRepuestosFrenos().keySet();
+				
+			}
+			else if(tipo.equals("Electrico")) {
+				claves = this.getRepuestosGenericos().getRepuestosElectrico().keySet();
+				
+			}
+			else if(tipo.equals("Llantas")) {
+				claves = this.getRepuestosGenericos().getRepuestosLlantas().keySet();
+				
+			}
+			else if(tipo.equals("Carroceria")) {
+				claves = this.getRepuestosGenericos().getRepuestosCarroceria().keySet();
+				
+			}
+		}
+		return claves;
+	}
+
+
+
+	public int getServiciosCarro() {
+		return serviciosCarro;
+	}
+
+
+
+	public void setServiciosCarro(int serviciosCarro) {
+		this.serviciosCarro = serviciosCarro;
+	}
+
+
+
+	public int getServiciosMoto() {
+		return serviciosMoto;
+	}
+
+
+
+	public void setServiciosMoto(int serviciosMoto) {
+		this.serviciosMoto = serviciosMoto;
+	}
+
+
+
+	public int getPrecioMoto() {
+		return precioMoto;
+	}
+
+
+
+	public void setPrecioMoto(int precioMoto) {
+		this.precioMoto = precioMoto;
+	}
+
+
+
+	public int getPrecioCarro() {
+		return precioCarro;
+	}
+
+
+
+	public void setPrecioCarro(int precioCarro) {
+		this.precioCarro = precioCarro;
+	}
+
+
+
+	public int getSalarioMecanico() {
+		return salarioMecanico;
+	}
+
+
+
+	public void setSalarioMecanico(int salarioMecanico) {
+		this.salarioMecanico = salarioMecanico;
+	}
+
+
+
+	public int getSalarioAdmin() {
+		return salarioAdmin;
+	}
+
+
+
+	public void setSalarioAdmin(int salarioAdmin) {
+		this.salarioAdmin = salarioAdmin;
+	}
+	
+	public void recibirDinero(int dinero) {
+		this.ingresos = ingresos + dinero;
+	}
+	
 	
 	
 	

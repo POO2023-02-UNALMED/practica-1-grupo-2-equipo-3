@@ -267,5 +267,27 @@ public class RepuestoGenerico extends Repuestos{
 		this.proveedor = proveedor;
 	}
 	
+	public int obtenerPrecio(String repuesto, String tipo) {
+		
+		if (tipo.equals("Motor")) {
+			return this.getRepuestosMotor().get(repuesto);
+		}
+		else if (tipo.equals("Frenos")) {
+			return this.getRepuestosFrenos().get(repuesto);
+		}
+		
+		else if(tipo.equals("Electrico")) {
+			return this.getRepuestosElectrico().get(repuesto);
+		}
+		
+		else if(tipo.equals("Llantas")) {
+			return this.getRepuestosLlantas().get(repuesto);
+		}
+		else if(tipo.equals("Carroceria")) {
+			return this.getRepuestosCarroceria().get(repuesto);
+		}
+		return 0;
+	}
+	
 
 }

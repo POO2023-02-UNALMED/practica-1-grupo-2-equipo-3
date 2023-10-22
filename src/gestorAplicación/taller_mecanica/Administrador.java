@@ -17,6 +17,10 @@ public class Administrador {
 		this.id = id; 
 		this.inventario = inventario;
 	}
+	
+	public Administrador() {
+		
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -175,7 +179,7 @@ public class Administrador {
         ordenMasRentable.setPrecio(ordenMasRentable.getPrecio() + aumento);
 	}
 	
-	private void generarResumenMasIngresosOpcion2Deluxe(Orden ordenMasRentable, int aumento, String tipoRepuesto){
+	public void generarResumenMasIngresosOpcion2Deluxe(Orden ordenMasRentable, int aumento, String tipoRepuesto){
 	    RepuestoDeluxe repuestoDeluxe = ordenMasRentable.getAdmin().getInventario().getRepuestosDeluxe();
 	    repuestoDeluxe.aumentarPrecio(aumento, tipoRepuesto);
 	}
@@ -437,6 +441,20 @@ public class Administrador {
 		}
 		
 		return proveedoresDisponibles;
+	}
+	
+	public ArrayList<Mecanicos> obtenerMecanicosAfines(String afinidad){
+		ArrayList<Mecanicos> mecanicos = new ArrayList<>();
+		for(int i = 1; i < this.mecanicosDisponibles.size(); i++) {
+				
+			if(this.mecanicos.get(i).getAfinidad() == afinidad) {
+				mecanicos.add(this.mecanicos.get(i));
+			}
+		}
+		
+		return mecanicos;
+			
+		
 	}
 
 }
