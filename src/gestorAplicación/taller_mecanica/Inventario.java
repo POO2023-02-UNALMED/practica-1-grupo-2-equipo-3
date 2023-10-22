@@ -9,6 +9,10 @@ public class Inventario {
 	protected boolean estado;
 	protected int serviciosCarro;
 	protected int serviciosMoto;
+	protected int precioMoto = PreciosBase.SERVICIOMOTO.getValor();
+	protected int precioCarro = PreciosBase.SERVICIOCARRO.getValor();
+	protected int salarioMecanico = PreciosBase.SALARIOMECANICO.getValor();
+	protected int salarioAdmin = PreciosBase.SALARIOADMINISTRADOR.getValor();
 	
 	public Inventario(Administrador admin, RepuestoDeluxe repuestosDeluxe,
 			RepuestoGenerico repuestosGenericos) {

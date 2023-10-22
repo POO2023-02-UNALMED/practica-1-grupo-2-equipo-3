@@ -95,16 +95,16 @@ public class Clientes implements CalificaciónMecanico {
 	}
 	
 	
-	public void crearOrden(Vehiculo vehiculo, Mecanicos mecanico, Administrador admin) {
+	public void crearOrden(Vehiculo vehiculo, Mecanicos mecanico, Administrador admin, int precio) {
 		
 		
 		if (vehiculo.toString().equals("Carro")) {
 			
-			this.ordenes.add(new Orden("Carro", this, mecanico, admin, vehiculo));
+			this.ordenes.add(new Orden("Carro", this, mecanico, admin, vehiculo, precio));
 		}
 		if (vehiculo.toString().equals("Moto")) {
 			
-			this.ordenes.add(new Orden("Moto", this, mecanico, admin, vehiculo));
+			this.ordenes.add(new Orden("Moto", this, mecanico, admin, vehiculo, precio));
 			
 		}
 	}

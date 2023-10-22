@@ -19,7 +19,7 @@ public class Orden {
 	protected static int numOrdenes;
 	protected static ArrayList<Orden> ordenesTotales = new ArrayList<>();
 	
-	public Orden(String tipo, Clientes cliente, Mecanicos mecanico, Administrador admin, Vehiculo vehiculo) {
+	public Orden(String tipo, Clientes cliente, Mecanicos mecanico, Administrador admin, Vehiculo vehiculo,int precio) {
 		
 		this.tipo = tipo;
 		this.cliente = cliente;
@@ -36,8 +36,8 @@ public class Orden {
 		
 	}
 	
-	public Orden(String tipo) {
-		this(tipo, null, null, null, null);
+	public Orden(String tipo, int precio) {
+		this(tipo, null, null, null, null, precio);
 	}
 	
 	public String completarOrden() {
