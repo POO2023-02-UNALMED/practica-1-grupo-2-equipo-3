@@ -1,9 +1,11 @@
 package baseDatos;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,77 +14,7 @@ import taller_mecanica.*;
 import cliente.*;
 
 public class Serializador {
-	private static File rutaTemp = new File("src\\gestorAplicación\\baseDatos\\temp");
-	
-	
-	
-	public static void serializar(Administrador admin){
-		FileOutputStream fos;
-		ObjectOutputStream oos;
-		File[] docs = rutaTemp.listFiles();
-		PrintWriter pw;
-	    
-	    for (File file : docs){
-	    	try{
-	    		pw = new PrintWriter(file);
-	    	} catch (FileNotFoundException e){
-	    		e.printStackTrace();
-	    	}
-	    }
-	    
-	    for (File file : docs){
-	    	if(file.getAbsolutePath().contains("mecanicos")){
-	    		try{
-	    			fos = new FileOutputStream(file);
-	    			oos = new ObjectOutputStream(fos);
-	    			oos.writeObject(admin.getMecanicos());
-	    		} catch (FileNotFoundException e){
-	    			e.printStackTrace();
-	    		
-	    		} catch (IOException e){
-	    			e.printStackTrace();
-	    		}
-	    	}else if(file.getAbsolutePath().contains("proveedores")){
-	    		try{
-	    			fos = new FileOutputStream(file);
-	    			oos = new ObjectOutputStream(fos);
-	    			oos.writeObject(admin.getProveedores());
-	    		} catch (FileNotFoundException e){
-	    			e.printStackTrace();
-	    		
-	    		} catch (IOException e){
-	    			e.printStackTrace();
-	    	
-	    		}
-	    	}else if (file.getAbsolutePath().contains("inventario")) {
-                
-	    		try {
-                    fos = new FileOutputStream(file);
-                    oos = new ObjectOutputStream(fos);
-                    oos.writeObject(admin.getInventario());
-                    oos.close();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-	    	}else if (file.getAbsolutePath().contains("ordenes")){
-	    		try {
-	    			  fos = new FileOutputStream(file);
-	                    oos = new ObjectOutputStream(fos);
-	                    oos.writeObject(admin.getOrdenes());
-	                    oos.close();
-	                    fos.close();
-	                } catch (FileNotFoundException e) {
-	                    e.printStackTrace();
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                }
-	    		}
-	    		
-	    }
-	 }
+	static File archivo = new File("");
 	 
 	public static void main(String[] args) {
 		 Administrador administrador = new Administrador();
@@ -255,7 +187,19 @@ public class Serializador {
 		administrador.setProveedores(proveedores);
 		administrador.setInventario(inventario);
 		administrador.setMecanicosDisponibles(mecanicos);
-	
+		
+		try {
+		    FileOutputStream f = new FileOutputStream(new File(archivo.getAbsolutePath() + "\\src\\gestorAplicación\\baseDatos\\admin.txt"));
+		    ObjectOutputStream o = new ObjectOutputStream(f);
+		    o.writeObject(administrador);
+		    o.close();
+		    f.close();
+		} catch (FileNotFoundException e) {
+		    e.printStackTrace();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
 	}	 
 }
 
