@@ -23,7 +23,7 @@ public class Inventario implements Serializable{
 	protected int salarioMecanico = PreciosBase.SALARIOMECANICO.getValor();
 	protected int salarioAdmin = PreciosBase.SALARIOADMINISTRADOR.getValor();
 	
-	public Inventario(RepuestoDeluxe repuestosDeluxe,
+	public Inventario(Administrador admin,RepuestoDeluxe repuestosDeluxe,
 			RepuestoGenerico repuestosGenericos) {
 		
 		
@@ -210,6 +210,18 @@ public class Inventario implements Serializable{
 		
 		this.cartera_inicial = this.cartera_inicial - precio;
 		this.gastos = this.gastos + precio;
+	}
+
+
+
+	public int getCartera_inicial() {
+		return cartera_inicial;
+	}
+
+
+
+	public void setCartera_inicial(int cartera_inicial) {
+		this.cartera_inicial = cartera_inicial;
 	}
 	
 	

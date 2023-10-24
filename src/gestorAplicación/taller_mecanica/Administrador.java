@@ -1027,7 +1027,42 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 		return proveedoresDisponibles;
 	}
 	
+	public void finanzas() {
+		
+		for(int i = 0; i < this.mecanicos.size(); i++) {
+			
+				this.getInventario().pagar(this.getInventario().getSalarioMecanico());
+				
+				for(int e = 0; i < this.mecanicos.get(i).getOrdenes().size();e++) {
+					
+					if(this.mecanicos.get(i).getOrdenes().get(e).getTipo().equals("Carro")) {
+					
+						this.getInventario().recibirDinero(this.mecanicos.get(i).getOrdenes().get(e).getPrecio());
+					}
+					else if(this.mecanicos.get(i).getOrdenes().get(e).getTipo().equals("Moto")) {
+					
+						this.getInventario().recibirDinero(this.mecanicos.get(i).getOrdenes().get(e).getPrecio());
+					}
+				}
+			}
+		
+		this.getInventario().pagar(this.getInventario().getSalarioAdmin());
+		
+		this.getInventario().setCartera_inicial(this.getInventario().getCartera_inicial() - this.getInventario().getGastos() +
+				this.getInventario().getIngresos());
+					
+		}
+		
+		
+		public int numOrdenes() {
+			
+			int numOrdenes = 0;
+			
+			
+		}
+		
+	}
 	
 	
 
-}
+
