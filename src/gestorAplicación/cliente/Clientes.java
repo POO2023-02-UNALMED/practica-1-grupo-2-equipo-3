@@ -2,10 +2,14 @@ package cliente;
 import taller_mecanica.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.Serializable;
 
-
-public class Clientes implements CalificaciónMecanico {
+public class Clientes implements CalificaciónMecanico, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String nombre;
 	protected int id;
 	protected static int asignadorId;

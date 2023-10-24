@@ -3,9 +3,14 @@ package cliente;
 import java.util.Random;
 import java.util.HashSet;
 import java.util.Set;
+import java.io.Serializable;
 
-public class Vehiculo {
-    String tipo;
+public class Vehiculo implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String tipo;
     String placa;
     TipoDaño tipoDeDanio;
     Clientes dueno;

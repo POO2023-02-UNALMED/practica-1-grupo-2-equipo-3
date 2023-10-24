@@ -2,7 +2,13 @@ package taller_mecanica;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-public abstract class Repuestos {
+import java.io.Serializable; 
+
+public abstract class Repuestos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Map<String, Integer> repuestosMotor = new HashMap<>();
 	protected Map<String, Integer> repuestosFrenos = new HashMap<>();
 	protected Map<String, Integer> repuestosElectrico = new HashMap<>();
