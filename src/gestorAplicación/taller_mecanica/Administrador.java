@@ -175,11 +175,11 @@ public class Administrador implements Serializable {
 		}
 	}
 	
-	private void ordenMasRentable(){
+	public void ordenMasRentable(){
 		
 	}
 	
-	private void generarResumenMasIngresosOpcion1(Orden ordenMasRentable, int aumento){
+	public void generarResumenMasIngresosOpcion1(Orden ordenMasRentable, int aumento){
         ordenMasRentable.setPrecio(ordenMasRentable.getPrecio() + aumento);
 	}
 	
@@ -188,43 +188,43 @@ public class Administrador implements Serializable {
 	    repuestoDeluxe.aumentarPrecio(aumento, tipoRepuesto);
 	}
 	
-	private void generarResumenMasIngresosOpcion2Generico(Orden ordenMasRentable, int aumento, String tipoRepuesto){
+	public void generarResumenMasIngresosOpcion2Generico(Orden ordenMasRentable, int aumento, String tipoRepuesto){
 	    RepuestoGenerico repuestoGenerico = ordenMasRentable.getAdmin().getInventario().getRepuestosGenericos();
 	    repuestoGenerico.aumentarPrecio(aumento, tipoRepuesto);
 	}
 	
-	//Bonificación Mecanicos // 
-	private void generarResumenMasIngresosOpcion3(Orden ordenMasRentable, int aumento){
+	
+	public void generarResumenMasIngresosOpcion3(Orden ordenMasRentable, int aumento){
 		Mecanicos mecanico = ordenMasRentable.getMecanico();
 		mecanico.setComisiones(mecanico.getComisiones()+ aumento);
 	}
 	
-	private void ordenMenosRentable(){}
+	public void ordenMenosRentable(){}
 	
-	private void generarResumenMenosIngresosOpcion1(Orden ordenMenosRentable, int desaumento){
+	public void generarResumenMenosIngresosOpcion1(Orden ordenMenosRentable, int desaumento){
 		if(desaumento <= ordenMenosRentable.getPrecio()){
 			ordenMenosRentable.setPrecio(ordenMenosRentable.getPrecio()- desaumento);
 		}
 	}
 	
-	private void generarResumenMenosIngresosOpcion2Deluxe(Orden ordenMenosRentable, int desaumento, String tipoRepuesto){
+	public void generarResumenMenosIngresosOpcion2Deluxe(Orden ordenMenosRentable, int desaumento, String tipoRepuesto){
 		RepuestoDeluxe repuestoDeluxe = ordenMenosRentable.getAdmin().getInventario().getRepuestosDeluxe();
 	    repuestoDeluxe.disminuirPrecio(desaumento, tipoRepuesto);
 	}
 	
-	private void generarResumenMenosIngresosOpcion2Generico(Orden ordenMasRentable, int desaumento, String tipoRepuesto){
+	public void generarResumenMenosIngresosOpcion2Generico(Orden ordenMasRentable, int desaumento, String tipoRepuesto){
 	    RepuestoGenerico repuestoGenerico = ordenMasRentable.getAdmin().getInventario().getRepuestosGenericos();
 	    repuestoGenerico.disminuirPrecio(desaumento, tipoRepuesto);
 	}
 	
-	private void generarResumenMenosIngresosOpcion3(Orden ordenMasRentable, int desaumento){
+	public void generarResumenMenosIngresosOpcion3(Orden ordenMasRentable, int desaumento){
 		Mecanicos mecanico = ordenMasRentable.getMecanico();
 		if(desaumento <= mecanico.getComisiones()){
 			mecanico.setComisiones(mecanico.getComisiones() - desaumento);
 		}
 	}
 	
-	private int resumenGeneral(){
+	public int resumenGeneral(){
 		int sumaSalarios = 0;
 		for (Mecanicos mecanico : mecanicosDisponibles) {
 	        sumaSalarios += mecanico.getSalario();
