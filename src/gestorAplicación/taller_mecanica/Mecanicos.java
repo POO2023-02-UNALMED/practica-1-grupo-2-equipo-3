@@ -1,7 +1,13 @@
 package taller_mecanica;
 import cliente.*;
 import java.util.ArrayList;
-public class Mecanicos {
+import java.io.Serializable;
+
+public class Mecanicos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String nombre;
 	String afinidad; 
 	ArrayList<Vehiculo> vehiculos = new ArrayList<>();

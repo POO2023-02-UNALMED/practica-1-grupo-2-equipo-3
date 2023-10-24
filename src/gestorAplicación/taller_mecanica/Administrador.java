@@ -1,8 +1,10 @@
 package taller_mecanica;
 import java.util.ArrayList;
+import java.io.Serializable;
+import java.io.Serializable;
 
 
-public class Administrador {
+public class Administrador implements Serializable {
 	protected String nombre;
 	protected int id;
 	protected ArrayList <Mecanicos> mecanicos = new ArrayList<>();
@@ -173,7 +175,9 @@ public class Administrador {
 		}
 	}
 	
-	private void ordenMasRentable(){}
+	private void ordenMasRentable(){
+		
+	}
 	
 	private void generarResumenMasIngresosOpcion1(Orden ordenMasRentable, int aumento){
         ordenMasRentable.setPrecio(ordenMasRentable.getPrecio() + aumento);

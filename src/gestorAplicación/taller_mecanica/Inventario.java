@@ -1,8 +1,16 @@
 package taller_mecanica;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
-public class Inventario {
+import java.io.Serializable;
+
+
+
+public class Inventario implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
 	protected Administrador admin;
 	protected RepuestoDeluxe repuestosDeluxe;
 	protected RepuestoGenerico repuestosGenericos;

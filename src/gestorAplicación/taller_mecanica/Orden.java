@@ -2,9 +2,14 @@ package taller_mecanica;
 import cliente.*;
 import java.util.Date;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Orden {
+public class Orden implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String tipo;
 	protected Date fecha;
 	protected Clientes cliente;

@@ -1,7 +1,12 @@
 package taller_mecanica;
+import java.io.Serializable;
 
-public class Proveedor {
+public class Proveedor implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String nombre;
 	protected Administrador admin;
 	protected int id;

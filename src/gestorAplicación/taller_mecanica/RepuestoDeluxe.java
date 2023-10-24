@@ -2,8 +2,14 @@ package taller_mecanica;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-public class RepuestoDeluxe extends Repuestos {
+import java.io.Serializable;
+
+public class RepuestoDeluxe extends Repuestos implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Proveedor proveedor;
 	public RepuestoDeluxe() {
 		super();

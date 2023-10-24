@@ -2,9 +2,14 @@ package cliente;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Arrays;
+import java.io.Serializable;
 
-public class TipoDaño {
-    ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+public class TipoDaño implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     static ArrayList<TipoDaño> tiposDeDaño = new ArrayList<>();
     String tipo;
     int clave;
