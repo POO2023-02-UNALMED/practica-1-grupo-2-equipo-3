@@ -8,6 +8,7 @@ public class Mecanicos {
 	ArrayList<Clientes> clientes = new ArrayList<>();
 	Administrador administrador;
 	ArrayList<Orden> ordenes = new ArrayList<>();
+	ArrayList<Orden> ordenesFinalizadas = new ArrayList<>();
 	byte serviciosMax = 5;
 	int salario;
 	int comisiones;
@@ -137,6 +138,120 @@ public class Mecanicos {
 		this.comisiones = this.comisiones + comision;
 	}
 	
+
+	public boolean reparar(Orden orden, int pasos) {
+		
+		int claveMotor1 = 15432;
+		int claveMotor2 = 12354;
+		int claveFrenos1 = 15432;
+		int claveFrenos2 = 12354;
+		int claveElectrico1 = 15432;
+		int claveElectrico2 = 12354;
+		int claveCarroceria1 = 15432;
+		int claveCarroceria2 = 12354;
+		int claveLlantas1 = 15432;
+		int claveLlantas2 = 12354;
+		String completado = "";
+		
+		if(orden.getVehiculo().getTipoDeDanio().getTipo().equals("Motor")) {
+			
+			if (pasos == claveMotor1 || pasos == claveMotor2) {
+				
+				orden.getVehiculo().setTipoDeDanio(null);
+				completado = "Si";
+				this.ordenesFinalizadas.add(orden);
+				
+				
+			}
+			else {
+				
+				orden.getVehiculo().falloMecanico();
+				completado = "No";
+			}
+		}
+		
+		else if(orden.getVehiculo().getTipoDeDanio().getTipo().equals("Frenos")) {
+			
+			if (pasos == claveFrenos1 || pasos == claveFrenos2) {
+				
+				orden.getVehiculo().setTipoDeDanio(null);
+				completado = "Si";
+				this.ordenesFinalizadas.add(orden);
+				
+				
+			}
+			else {
+				
+				orden.getVehiculo().falloMecanico();
+				completado = "No";
+			}
+		}
+		else if(orden.getVehiculo().getTipoDeDanio().getTipo().equals("Electrico")) {
+			
+			if (pasos == claveElectrico1 || pasos == claveElectrico2) {
+				
+				orden.getVehiculo().setTipoDeDanio(null);
+				completado = "Si";
+				this.ordenesFinalizadas.add(orden);
+				
+				
+			}
+			else {
+				
+				orden.getVehiculo().falloMecanico();
+				completado = "No";
+			}
+		}
+		else if(orden.getVehiculo().getTipoDeDanio().getTipo().equals("Llantas")) {
+	
+			if (pasos == claveLlantas1 || pasos == claveLlantas2) {
+		
+				orden.getVehiculo().setTipoDeDanio(null);
+				completado = "Si";
+				this.ordenesFinalizadas.add(orden);
+				
+		
+			}
+			else {
+		
+				orden.getVehiculo().falloMecanico();
+				completado = "No";
+			}
+		}
+		else if(orden.getVehiculo().getTipoDeDanio().getTipo().equals("Carroceria")) {
+	
+			if (pasos == claveCarroceria1 || pasos == claveCarroceria2) {
+		
+				orden.getVehiculo().setTipoDeDanio(null);
+				completado = "Si";
+				this.ordenesFinalizadas.add(orden);
+				
+		
+			}
+			else {
+		
+				orden.getVehiculo().falloMecanico();
+				completado = "No";
+			}
+		}
+		
+		if (completado.equals("Si")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+		
+}
+
+	public ArrayList<Orden> getOrdenesFinalizadas() {
+		return ordenesFinalizadas;
+	}
+
+	public void setOrdenesFinalizadas(ArrayList<Orden> ordenesFinalizadas) {
+		this.ordenesFinalizadas = ordenesFinalizadas;
+	}
 	
 	
 	

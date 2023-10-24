@@ -48,12 +48,21 @@ public class Vehiculo {
     public void setTipoDeDanio(String tipo) {
         TipoDaño Tipo = TipoDaño.tiposDeDaño.get(0);
         
-        for(int i = 0; i < TipoDaño.tiposDeDaño.size(); i++) {
-        	if (tipo == TipoDaño.tiposDeDaño.get(i).getTipo()) {
-        		Tipo = TipoDaño.tiposDeDaño.get(i);
-        	}
+        
+        if(tipo == null) {
+        	
+        	this.tipoDeDanio = null;
         }
-        this.tipoDeDanio = Tipo;
+        
+        else {
+        	for(int i = 0; i < TipoDaño.tiposDeDaño.size(); i++) {
+        		if (tipo == TipoDaño.tiposDeDaño.get(i).getTipo()) {
+        			Tipo = TipoDaño.tiposDeDaño.get(i);
+        		}
+        	}
+        	this.tipoDeDanio = Tipo;
+        
+        } 
         
     }
 

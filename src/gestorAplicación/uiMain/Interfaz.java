@@ -22,7 +22,7 @@ public class Interfaz {
 
 	        byte opcion = scanner.nextByte();
 	        
-	        
+	        Administrador admin = new Administrador();
 	       
 
 	        switch (opcion) {
@@ -34,14 +34,14 @@ public class Interfaz {
 	                String categoria_repuesto = "";
 	                String repuesto = "";
 	                Clientes cliente = null;
-	    	        Administrador admin = new Administrador();
+	    	       
 	    	        admin.verificarMecanicosDisponibles();
 	    	        Orden orden = null;
 	    	        int precio = 0;
 	    	      
 	               
 
-	                while (paso <= 6) {
+	                while (paso <= 8) {
 	                    switch (paso) {
 	                        case 1:
 	                            System.out.println("Cuál es su nombre?");
@@ -136,10 +136,12 @@ public class Interfaz {
 		                                 if(cont == 2) {
 		                                	 break;
 		                                 }
-		                                 cont++;
+		                                cont++;
 		                            }
 	                        		
 	                        	}
+	                        	paso++;
+	                        	break;
 	                        case 7:
 	                        	System.out.println("Este es el resumen de su orden");
 	                        	if (vehiculo.equals("Moto") ) {
@@ -164,6 +166,7 @@ public class Interfaz {
 	                        	
 	                        	System.out.println(orden.resumenOrden());
 	                        	paso++;
+	                        	break;
 	                        case 8:
 	                        	System.out.println("Total a pagar: " + orden.getPrecio());
 	                        	System.out.println("1.Pagar");
@@ -172,24 +175,132 @@ public class Interfaz {
 	                        	if(pagar == 1) {
 	                        		cliente.pagar(precio);
 	                        	}
-	                        	
-	                        	
-	                        	
-	                        	
-	                        	
-	                        	
-	                        	
-	                        	
-	                        	
-	                        	
-	                        	
+	                        	paso++;
+	                        	break;
 	                    }
 	                }
 
-	                System.out.println("Cliente registrado: " + cliente);
+	                System.out.println("Gracias por solicitar un servicio");
 
-	                break; // Terminar el caso 1
-	            // Otros casos aquí...
+	                break; 
+	            case 2:
+	            	
+	            	int paso_2 = 1;
+	            	Mecanicos mecanico = null;
+	            	Orden orden_reparar = null;
+	            	
+	            	while(paso_2 <= 5) {
+	            		
+	            		switch(paso_2) {
+	            			
+	            			case 1:
+	            				System.out.println("Hola mecanico");
+	            				System.out.println("¿Cuál es tu nombre?");
+	            				
+	            				for(int i = 0; i < admin.mecanicosTrabajando().size(); i++) {
+	            					
+	            					System.out.println(i + "." + admin.mecanicosTrabajando().get(i).getNombre());
+	            					
+	            				}
+	            				
+	            				String nombre_mecanico = scanner.next();
+	            				
+	            				for(int i = 0; i < admin.mecanicosTrabajando().size(); i++) {
+	            					
+	            					if(admin.mecanicosTrabajando().get(i).getNombre().equals(nombre_mecanico)) {
+	            						mecanico = admin.mecanicosTrabajando().get(i);
+	            					}
+;
+	            					
+	            				}
+	            				paso_2++;
+	            				break;
+	            			
+	            			case 2:
+	            				System.out.println("¿Cual orden deseas trabajar?");
+	            				
+	            				for(int i = 0; i < mecanico.getOrdenes().size(); i++) {
+	            					
+	            					System.out.println(i + ".Orden" + i);
+	            				}
+	            				
+	            				byte opcion_2 = scanner.nextByte();
+	            				
+	            				orden_reparar = mecanico.getOrdenes().get(opcion_2);
+	            				
+	            				paso_2++;
+	            				break;
+	            			
+	            			case 3:
+	            				
+	            				System.out.println("Este es el resumen de la orden que vas a realizar");
+	            				
+	            				System.out.println(orden_reparar.resumenOrden());
+	            				
+	            				paso_2++;
+	            				break;
+	            			
+	            			case 4:
+	            				boolean completado = false;
+	            				while(completado == false) {
+	            					System.out.println("Escriba el orden de los pasos a realizar");
+	            					System.out.println("1.Paso1");
+	            					System.out.println("1.Paso2");
+	            					System.out.println("1.Paso3");
+	            					System.out.println("1.Paso4");
+	            					System.out.println("1.Paso5");
+	            				
+	            				int pasos = scanner.nextInt();
+	            				completado = mecanico.reparar(orden_reparar,pasos);
+	            				if(completado) {
+	            					System.out.println("Usted ha reparado el vehiculo");
+	            					System.out.println("Has ganado" + 5000);
+	            				}
+	            				else {
+	            					System.out.println("Has fallado y has generado otro tipo de daño");
+	            					System.out.println("Causaste un daño de tipo: " + orden_reparar.getVehiculo().getTipoDeDanio().getTipo());
+	            					System.out.println("Intentalo de nuevo");
+	            				}
+	            			
+	            				}
+	            				paso_2++;
+	            				break;
+	            			
+	            			case 5:
+	            				
+	            				System.out.println("¿Te gustaria hacer algo más?");
+	            				System.out.println("1.Consultar ordenes realizadas");
+	            				System.out.println("2.Consultar comisiones");
+	            				
+	            				byte opcion_2_2 = scanner.nextByte();
+	            				
+	            				if (opcion_2_2 == 1) {
+	            					
+	            					for (int i = 0; i < mecanico.getOrdenesFinalizadas().size(); i++) {
+	            						System.out.println("Orden #" + i+1);
+	            						System.out.println(mecanico.getOrdenesFinalizadas().get(i).resumenOrden());
+	            					}
+	            				}
+	            				else if(opcion_2_2 == 2) {
+	            					System.out.println("Actualmente tus comisiones tiene un valor de: " + mecanico.getComisiones());
+	            				}
+	            				
+	            				paso_2++;
+	            				break;
+	            		}
+	            	}
+	            	break;
+	            case 3:
+	            	
+	            	int paso_3 = 1;
+	            	
+	            	while(paso_3 <= 6) {
+	            		
+	            		switch(paso_3) {
+	            		
+	            		}
+	            	}
+	            	
 	        }
 	    }
 	}
