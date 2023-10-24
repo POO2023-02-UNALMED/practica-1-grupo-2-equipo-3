@@ -9,17 +9,17 @@ public abstract class Repuestos implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected Map<String, Integer> repuestosMotor = new HashMap<>();
-	protected Map<String, Integer> repuestosFrenos = new HashMap<>();
-	protected Map<String, Integer> repuestosElectrico = new HashMap<>();
-	protected Map<String, Integer> repuestosLlantas = new HashMap<>();
-	protected Map<String, Integer> repuestosCarroceria = new HashMap<>();
-	protected Map<String, Integer> repuestosMotorCant = new HashMap<>();
-	protected Map<String, Integer> repuestosFrenosCant = new HashMap<>();
-	protected Map<String, Integer> repuestosElectricoCant = new HashMap<>();
-	protected Map<String, Integer> repuestosLlantasCant = new HashMap<>();
-	protected Map<String, Integer> repuestosCarroceriaCant = new HashMap<>();
-	protected Proveedor proveedor;
+	public Map<String, Integer> repuestosMotor = new HashMap<>();
+	public Map<String, Integer> repuestosFrenos = new HashMap<>();
+	public Map<String, Integer> repuestosElectrico = new HashMap<>();
+	public Map<String, Integer> repuestosLlantas = new HashMap<>();
+	public Map<String, Integer> repuestosCarroceria = new HashMap<>();
+	public Map<String, Integer> repuestosMotorCant = new HashMap<>();
+	public Map<String, Integer> repuestosFrenosCant = new HashMap<>();
+	public Map<String, Integer> repuestosElectricoCant = new HashMap<>();
+	public Map<String, Integer> repuestosLlantasCant = new HashMap<>();
+	public Map<String, Integer> repuestosCarroceriaCant = new HashMap<>();
+	public Proveedor proveedor;
 	
 	public Repuestos() {
 		repuestosMotor.put("Bujia", 0);

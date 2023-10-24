@@ -5,6 +5,10 @@ import java.io.Serializable;
 
 
 public class Administrador implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String nombre;
 	protected int id;
 	protected ArrayList <Mecanicos> mecanicos = new ArrayList<>();

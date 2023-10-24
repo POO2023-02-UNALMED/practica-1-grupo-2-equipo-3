@@ -1,6 +1,8 @@
 package taller_mecanica;
+import java.io.Serializable;
 
-public enum PreciosBase {
+
+public enum PreciosBase implements Serializable {
 	
 	SERVICIOMOTO(8000),
     SERVICIOCARRO(12000),
