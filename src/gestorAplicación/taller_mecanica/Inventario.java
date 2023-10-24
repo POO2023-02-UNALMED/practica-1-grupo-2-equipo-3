@@ -9,26 +9,27 @@ public class Inventario implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	protected Administrador admin;
+	private Administrador admin;
 	protected RepuestoDeluxe repuestosDeluxe;
 	protected RepuestoGenerico repuestosGenericos;
-	protected int ingresos;
-	protected int gastos;
-	protected int cartera_inicial = 100000;
-	protected boolean estado;
-	protected int serviciosCarro;
-	protected int serviciosMoto;
-	protected int precioMoto = PreciosBase.SERVICIOMOTO.getValor();
-	protected int precioCarro = PreciosBase.SERVICIOCARRO.getValor();
-	protected int salarioMecanico = PreciosBase.SALARIOMECANICO.getValor();
-	protected int salarioAdmin = PreciosBase.SALARIOADMINISTRADOR.getValor();
+	private int ingresos;
+	private int gastos;
+	private double cartera_inicial = 1000000000;
+	protected PreciosBase precioMoto;
+	protected PreciosBase precioCarro;
+	protected PreciosBase salarioMecanico;
+	protected PreciosBase salarioAdmin;
 	
 	public Inventario(Administrador admin,RepuestoDeluxe repuestosDeluxe,
-			RepuestoGenerico repuestosGenericos) {
+			RepuestoGenerico repuestosGenericos, PreciosBase pc, PreciosBase pm, PreciosBase sc, PreciosBase sa ) {
 		
 		
 		this.repuestosDeluxe = repuestosDeluxe;
 		this.repuestosGenericos = repuestosGenericos;
+		this.precioMoto = pm;
+		this.precioCarro = pc;
+		this.salarioAdmin = sa;
+		this.salarioMecanico = sc;
 		
 	}
 	
@@ -74,13 +75,7 @@ public class Inventario implements Serializable{
 		this.gastos = gastos;
 	}
 
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
+	
 	
 	public  Set<String> consultarRepuestos(String categoria, String tipo){
 		Set<String> claves = this.getRepuestosDeluxe().getRepuestosCarroceria().keySet();
@@ -131,73 +126,56 @@ public class Inventario implements Serializable{
 
 
 
-	public int getServiciosCarro() {
-		return serviciosCarro;
-	}
 
 
 
-	public void setServiciosCarro(int serviciosCarro) {
-		this.serviciosCarro = serviciosCarro;
-	}
 
 
 
-	public int getServiciosMoto() {
-		return serviciosMoto;
-	}
 
-
-
-	public void setServiciosMoto(int serviciosMoto) {
-		this.serviciosMoto = serviciosMoto;
-	}
-
-
-
-	public int getPrecioMoto() {
+	public PreciosBase getPrecioMoto() {
 		return precioMoto;
 	}
 
 
 
-	public void setPrecioMoto(int precioMoto) {
+	public void setPrecioMoto(PreciosBase precioMoto) {
 		this.precioMoto = precioMoto;
 	}
 
 
 
-	public int getPrecioCarro() {
+	public PreciosBase getPrecioCarro() {
 		return precioCarro;
 	}
 
 
 
-	public void setPrecioCarro(int precioCarro) {
+	public void setPrecioCarro(PreciosBase precioCarro) {
 		this.precioCarro = precioCarro;
 	}
 
 
 
-	public int getSalarioMecanico() {
+	public PreciosBase getSalarioMecanico() {
 		return salarioMecanico;
 	}
 
 
 
-	public void setSalarioMecanico(int salarioMecanico) {
+	public void setSalarioMecanico(PreciosBase salarioMecanico) {
 		this.salarioMecanico = salarioMecanico;
 	}
 
 
 
-	public int getSalarioAdmin() {
+	public PreciosBase getSalarioAdmin() {
 		return salarioAdmin;
 	}
 
 
 
-	public void setSalarioAdmin(int salarioAdmin) {
+	public void setSalarioAdmin(PreciosBase salarioAdmin) {
 		this.salarioAdmin = salarioAdmin;
 	}
 	
@@ -208,13 +186,13 @@ public class Inventario implements Serializable{
 	
 	public void pagar(int precio) {
 		
-		this.cartera_inicial = this.cartera_inicial - precio;
+		this.cartera_inicial =  this.cartera_inicial - precio;
 		this.gastos = this.gastos + precio;
 	}
 
 
 
-	public int getCartera_inicial() {
+	public double getCartera_inicial() {
 		return cartera_inicial;
 	}
 

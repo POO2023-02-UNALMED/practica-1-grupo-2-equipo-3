@@ -12,21 +12,18 @@ public class TipoDaño implements Serializable{
 	ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     static ArrayList<TipoDaño> tiposDeDaño = new ArrayList<>();
     String tipo;
-    int clave;
+    
 
     public TipoDaño(String tipo) {
     	
-    	this(tipo,12345);
+    	this.tipo = tipo;
     	TipoDaño.tiposDeDaño.add(this);
     	
         
     }
     
-    public TipoDaño(String tipo, int clave) {
-    	this.tipo = tipo;
-    	this.clave = clave;
-    	
-    }
+  
+    
 
     public TipoDaño(Vehiculo vehiculo, String tipo) {
         vehiculos.add(vehiculo);

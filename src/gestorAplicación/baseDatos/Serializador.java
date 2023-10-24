@@ -21,11 +21,11 @@ public class Serializador {
 		 
 		 ArrayList<Mecanicos> mecanicos = new ArrayList<>();
 		 
-		 Mecanicos mecanico1 = new Mecanicos("Jeronimo", "Barrer", administrador);
-		 Mecanicos mecanico2 = new Mecanicos("Paula", "Barrer", administrador);
-		 Mecanicos mecanico3 = new Mecanicos("Harrison", "Barrer", administrador);
-		 Mecanicos mecanico4 = new Mecanicos("YiduarMusic", "Barrer", administrador);
-		 Mecanicos mecanico5 = new Mecanicos("Juan", "Barrer", administrador);
+		 Mecanicos mecanico1 = new Mecanicos("Jeronimo", "Carro", administrador);
+		 Mecanicos mecanico2 = new Mecanicos("Paula", "Moto", administrador);
+		 Mecanicos mecanico3 = new Mecanicos("Harrison", "Carro", administrador);
+		 Mecanicos mecanico4 = new Mecanicos("Pedro", "Moto", administrador);
+		 Mecanicos mecanico5 = new Mecanicos("Juan", "Carro", administrador);
 		 
 		 mecanicos.add(mecanico1);
 		 mecanicos.add(mecanico2);
@@ -35,7 +35,7 @@ public class Serializador {
 		 
 		 ArrayList<Proveedor> proveedores = new ArrayList<>();
 		 
-		 RepuestoDeluxe repuestoDeluxe1 = new RepuestoDeluxe();
+		 Repuestos repuestoDeluxe1 = new RepuestoDeluxe();
 		    repuestoDeluxe1.repuestosMotor.put("Bujia", 9910);
 		 	repuestoDeluxe1.repuestosMotor.put("Filtro de aceite", 8000);
 		 	repuestoDeluxe1.repuestosFrenos.put("Pastilla de frenos", 5500);
@@ -57,7 +57,7 @@ public class Serializador {
 			repuestoDeluxe1.repuestosCarroceriaCant.put("Pintura", 9999);
 			repuestoDeluxe1.repuestosCarroceriaCant.put("Espejos", 9199);
 		 
-		RepuestoGenerico repuestoGenerico1 = new RepuestoGenerico();
+		Repuestos repuestoGenerico1 = new RepuestoGenerico();
 			repuestoGenerico1.repuestosMotor.put("Bujia", 1010);
 			repuestoGenerico1.repuestosMotor.put("Filtro de aceite", 2020);
 			repuestoGenerico1.repuestosFrenos.put("Pastilla de frenos", 5550);
@@ -179,14 +179,27 @@ public class Serializador {
 			repuestoGenericoInventario.repuestosCarroceriaCant.put("Pintura", 1203);
 			repuestoGenericoInventario.repuestosCarroceriaCant.put("Espejos", 4055);
 	
-		Inventario inventario = new Inventario(administrador, repuestoDeluxeInventario ,repuestoGenericoInventario);
+		Inventario inventario = new Inventario(administrador, repuestoDeluxeInventario ,repuestoGenericoInventario, PreciosBase.SERVICIOCARRO, PreciosBase.SERVICIOMOTO, PreciosBase.SALARIOMECANICO, PreciosBase.SALARIOADMINISTRADOR);
 	
 		administrador.setNombre("Simon Bolivar");
 		administrador.setId(1006784599);
 		administrador.setMecanicos(mecanicos);
 		administrador.setProveedores(proveedores);
 		administrador.setInventario(inventario);
-		administrador.setMecanicosDisponibles(mecanicos);
+		administrador.setMecanicos(mecanicos);
+		
+		TipoDaño motor = new TipoDaño("Motor");
+		TipoDaño frenos = new TipoDaño("Frenos");
+		TipoDaño electrico = new TipoDaño("Electrico");
+		TipoDaño llantas = new TipoDaño("Llantas");
+		TipoDaño carroceria = new TipoDaño("Carroceria");
+		
+		administrador.añadirTipoDaño(motor);
+		administrador.añadirTipoDaño(frenos);
+		administrador.añadirTipoDaño(electrico);
+		administrador.añadirTipoDaño(llantas);
+		administrador.añadirTipoDaño(carroceria);
+		
 		
 		try {
 		    FileOutputStream f = new FileOutputStream(new File(archivo.getAbsolutePath() + "\\src\\gestorAplicación\\baseDatos\\admin.txt"));
@@ -201,5 +214,21 @@ public class Serializador {
 		}
 		
 	}	 
+	
+	public static void serializar(Administrador admin) {
+		
+		try {
+		    FileOutputStream f = new FileOutputStream(new File(archivo.getAbsolutePath() + "\\src\\gestorAplicación\\baseDatos\\admin.txt"));
+		    ObjectOutputStream o = new ObjectOutputStream(f);
+		    o.writeObject(admin);
+		    o.close();
+		    f.close();
+		} catch (FileNotFoundException e) {
+		    e.printStackTrace();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		
+	}
 }
 

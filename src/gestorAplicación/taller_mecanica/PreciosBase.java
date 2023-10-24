@@ -16,7 +16,7 @@ public enum PreciosBase implements Serializable {
 	}
 	
 	public int getValor() {
-		return this.valor;
+		return valor;
 	}
 
 }

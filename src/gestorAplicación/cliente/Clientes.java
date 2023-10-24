@@ -10,13 +10,13 @@ public class Clientes implements CalificaciónMecanico, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String nombre;
+	public String nombre;
 	protected int id;
 	protected static int asignadorId;
-	protected double cartera = 10000000;
+	private double cartera = 10000000;
 	protected ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-	protected ArrayList<Orden> ordenes = new ArrayList<>();
-	protected static ArrayList<Clientes> clientes = new ArrayList<>();
+	private ArrayList<Orden> ordenes = new ArrayList<>();
+	private static ArrayList<Clientes> clientes = new ArrayList<>();
 	
 	
 	public Clientes(String nombre, Vehiculo vehiculo) {
@@ -129,15 +129,17 @@ public class Clientes implements CalificaciónMecanico, Serializable {
 	}
 	
 	@Override
-	public void mecanicosActivosCliente(){
-	    System.out.println("Mecánicos que han trabajado en tus órdenes:");
-	    int i = 1;
-	    for (Orden orden : this.ordenes) {
-	        Mecanicos mecanico = orden.getMecanico();
-	        System.out.println(i + ". " + mecanico.getNombre());
-	        i++;
+	public ArrayList<Mecanicos> mecanicosActivosCliente(){
+	    ArrayList<Mecanicos> mecanicosCliente = new ArrayList<>();
+	    
+	    for(int i = 0; i < this.getOrdenes().size();i++) {
+	    	mecanicosCliente.add(this.getOrdenes().get(i).getMecanico());
 	    }
+	    
+	    return  mecanicosCliente;
 	   }
+	
+	
 	
 	
 	
@@ -160,12 +162,8 @@ public class Clientes implements CalificaciónMecanico, Serializable {
 		mecanico.setComisiones(mecanico.getComisiones()+ comision);
 	}
 	
-	@Override
-	public void despedirporEncuesta(Mecanicos mecanico, Administrador administrador){
-		if(mecanico.getCalificaciones().size() >= 3 && mecanico.getCalificacion() <= 1 ){
-            administrador.despedir(mecanico);
-		}
-	}
+	
+	
 	@Override
 	public void premiarPorEncuesta(Mecanicos mecanico, Administrador administrador){
 		if(mecanico.getCalificaciones().size() >= 3 && mecanico.getCalificacion() >= 4 ){
@@ -178,4 +176,18 @@ public class Clientes implements CalificaciónMecanico, Serializable {
 		this.ordenes.get(0).getAdmin().getInventario().recibirDinero(precio);
 		
 	}
+	
+	@Override
+	public void calificarTaller(Administrador admin, int calificacion) {
+	    admin.getCalificacionesTaller().add(calificacion);
+	    int sumaCalificaciones =admin.getCalificacionesTaller().stream()
+	            .mapToInt(Integer::intValue)
+	            .sum();
+	    
+	    int cantidadCalificaciones = admin.getCalificacionesTaller().size();
+	    int promedio = sumaCalificaciones / cantidadCalificaciones;
+
+	    admin.setCalificacionTaller(promedio);
+	}
+
 }

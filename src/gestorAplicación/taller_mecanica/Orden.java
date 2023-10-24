@@ -36,15 +36,18 @@ public class Orden implements Serializable {
 		this.estado = false;
 		this.fecha = new Date();
 		this.vehiculo = vehiculo;
+		this.precio = precio;
 		Orden.asignadorId++;
 		Orden.numOrdenes++;
 		this.mecanico.getOrdenes().add(this);
+		this.admin.getOrdenes().add(this);
 		
 		
 	}
 	
 	public Orden(String tipo, int precio) {
-		this(tipo, null, null, null, null, precio);
+		this.tipo = tipo;
+		this.precio = precio;
 	}
 	
 	public String completarOrden() {

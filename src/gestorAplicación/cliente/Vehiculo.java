@@ -1,4 +1,5 @@
 package cliente;
+import taller_mecanica.*;
 
 import java.util.Random;
 import java.util.HashSet;
@@ -10,10 +11,10 @@ public class Vehiculo implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String tipo;
-    String placa;
-    TipoDaño tipoDeDanio;
-    Clientes dueno;
+	public String tipo;
+    public String placa;
+    public TipoDaño tipoDeDanio;
+    public Clientes dueno;
     static String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     static Set<String> placas = new HashSet<>();
     
@@ -50,8 +51,8 @@ public class Vehiculo implements Serializable {
         return tipoDeDanio;
     }
 
-    public void setTipoDeDanio(String tipo) {
-        TipoDaño Tipo = TipoDaño.tiposDeDaño.get(0);
+    public void setTipoDeDanio(String tipo, Administrador admin) {
+        TipoDaño Tipo = admin.getTiposDaño().get(0);
         
         
         if(tipo == null) {
@@ -60,9 +61,9 @@ public class Vehiculo implements Serializable {
         }
         
         else {
-        	for(int i = 0; i < TipoDaño.tiposDeDaño.size(); i++) {
-        		if (tipo == TipoDaño.tiposDeDaño.get(i).getTipo()) {
-        			Tipo = TipoDaño.tiposDeDaño.get(i);
+        	for(int i = 0; i < admin.getTiposDaño().size(); i++) {
+        		if (admin.getTiposDaño().get(i).getTipo().equals(tipo)) {
+        			Tipo = admin.getTiposDaño().get(i);
         		}
         	}
         	this.tipoDeDanio = Tipo;
@@ -83,14 +84,27 @@ public class Vehiculo implements Serializable {
         this.tipo = tipo;
     }
     
-    public void falloMecanico() {
+    public void falloMecanico(Administrador admin) {
     	
     	Random rand = new Random();
     	int numeroAleatorio = rand.nextInt(5);
     	
-    	this.tipoDeDanio = TipoDaño.tiposDeDaño.get(numeroAleatorio);
+    	this.tipoDeDanio = admin.getTiposDaño().get(numeroAleatorio);
     			
     	
     	
+    }
+    
+    
+    public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipoDeDanio(TipoDaño tipoDeDanio) {
+		this.tipoDeDanio = tipoDeDanio;
+	}
+
+	public String toString() {
+    	return this.getTipo();
     }
 }

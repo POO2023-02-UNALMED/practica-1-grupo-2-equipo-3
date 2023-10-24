@@ -8,18 +8,18 @@ public class Mecanicos implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String nombre;
-	String afinidad; 
-	ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-	ArrayList<Clientes> clientes = new ArrayList<>();
-	Administrador administrador;
-	ArrayList<Orden> ordenes = new ArrayList<>();
-	ArrayList<Orden> ordenesFinalizadas = new ArrayList<>();
-	byte serviciosMax = 5;
-	int salario;
-	int comisiones;
-	int calificacion;
-	ArrayList<Integer> calificaciones = new ArrayList<>();
+	public String nombre;
+	public String afinidad; 
+	protected ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+	protected ArrayList<Clientes> clientes = new ArrayList<>();
+	private Administrador administrador;
+	private ArrayList<Orden> ordenes = new ArrayList<>();
+	private ArrayList<Orden> ordenesFinalizadas = new ArrayList<>();
+	public int serviciosMax = 5;
+	private int salario;
+	private int comisiones;
+	private int calificacion;
+	private ArrayList<Integer> calificaciones = new ArrayList<>();
 	static int numMecanicos;
 	
 	public Mecanicos(String nombre, String afinidad,Administrador administrador) {
@@ -120,11 +120,11 @@ public class Mecanicos implements Serializable{
 	
 	
 	
-	public byte getServiciosMax() {
+	public int getServiciosMax() {
 		return serviciosMax;
 	}
 
-	public void setServiciosMax(byte serviciosMax) {
+	public void setServiciosMax(int serviciosMax) {
 		this.serviciosMax = serviciosMax;
 	}
 
@@ -145,7 +145,7 @@ public class Mecanicos implements Serializable{
 	}
 	
 
-	public boolean reparar(Orden orden, int pasos) {
+	public boolean reparar(Orden orden, int pasos, Administrador admin) {
 		
 		int claveMotor1 = 15432;
 		int claveMotor2 = 12354;
@@ -163,7 +163,7 @@ public class Mecanicos implements Serializable{
 			
 			if (pasos == claveMotor1 || pasos == claveMotor2) {
 				
-				orden.getVehiculo().setTipoDeDanio(null);
+				orden.getVehiculo().setTipoDeDanio(null,admin);
 				completado = "Si";
 				this.ordenesFinalizadas.add(orden);
 				
@@ -171,7 +171,7 @@ public class Mecanicos implements Serializable{
 			}
 			else {
 				
-				orden.getVehiculo().falloMecanico();
+				orden.getVehiculo().falloMecanico(admin);
 				completado = "No";
 			}
 		}
@@ -180,7 +180,7 @@ public class Mecanicos implements Serializable{
 			
 			if (pasos == claveFrenos1 || pasos == claveFrenos2) {
 				
-				orden.getVehiculo().setTipoDeDanio(null);
+				orden.getVehiculo().setTipoDeDanio(null,admin);
 				completado = "Si";
 				this.ordenesFinalizadas.add(orden);
 				
@@ -188,7 +188,7 @@ public class Mecanicos implements Serializable{
 			}
 			else {
 				
-				orden.getVehiculo().falloMecanico();
+				orden.getVehiculo().falloMecanico(admin);
 				completado = "No";
 			}
 		}
@@ -196,7 +196,7 @@ public class Mecanicos implements Serializable{
 			
 			if (pasos == claveElectrico1 || pasos == claveElectrico2) {
 				
-				orden.getVehiculo().setTipoDeDanio(null);
+				orden.getVehiculo().setTipoDeDanio(null,admin);
 				completado = "Si";
 				this.ordenesFinalizadas.add(orden);
 				
@@ -204,7 +204,7 @@ public class Mecanicos implements Serializable{
 			}
 			else {
 				
-				orden.getVehiculo().falloMecanico();
+				orden.getVehiculo().falloMecanico(admin);
 				completado = "No";
 			}
 		}
@@ -212,7 +212,7 @@ public class Mecanicos implements Serializable{
 	
 			if (pasos == claveLlantas1 || pasos == claveLlantas2) {
 		
-				orden.getVehiculo().setTipoDeDanio(null);
+				orden.getVehiculo().setTipoDeDanio(null,admin);
 				completado = "Si";
 				this.ordenesFinalizadas.add(orden);
 				
@@ -220,7 +220,7 @@ public class Mecanicos implements Serializable{
 			}
 			else {
 		
-				orden.getVehiculo().falloMecanico();
+				orden.getVehiculo().falloMecanico(admin);
 				completado = "No";
 			}
 		}
@@ -228,7 +228,7 @@ public class Mecanicos implements Serializable{
 	
 			if (pasos == claveCarroceria1 || pasos == claveCarroceria2) {
 		
-				orden.getVehiculo().setTipoDeDanio(null);
+				orden.getVehiculo().setTipoDeDanio(null,admin);
 				completado = "Si";
 				this.ordenesFinalizadas.add(orden);
 				
@@ -236,7 +236,7 @@ public class Mecanicos implements Serializable{
 			}
 			else {
 		
-				orden.getVehiculo().falloMecanico();
+				orden.getVehiculo().falloMecanico(admin);
 				completado = "No";
 			}
 		}
@@ -257,6 +257,10 @@ public class Mecanicos implements Serializable{
 
 	public void setOrdenesFinalizadas(ArrayList<Orden> ordenesFinalizadas) {
 		this.ordenesFinalizadas = ordenesFinalizadas;
+	}
+	
+	public void añadirCliente(Clientes cliente) {
+		this.clientes.add(cliente);
 	}
 	
 	

@@ -7,20 +7,20 @@ public class Proveedor implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String nombre;
-	protected Administrador admin;
-	protected int id;
-	protected RepuestoDeluxe repuestosDeluxe;
-	protected RepuestoGenerico repuestoGenerico;
+	public String nombre;
+	private Administrador admin;
+	private int id;
+	private Repuestos repuestosDeluxe;
+	private Repuestos repuestoGenerico;
 	
 	public Proveedor(String nombre, Administrador admin, int id,
-			RepuestoDeluxe repuestosDeluxe, RepuestoGenerico repuestosGenerico) {
+			Repuestos repuestoDeluxe1, Repuestos repuestoGenerico1) {
 		
 		this.nombre = nombre;
 		this.admin = admin;
 		this.id = id;
-		this.repuestosDeluxe = repuestosDeluxe;
-		this.repuestoGenerico = repuestosGenerico;
+		this.repuestosDeluxe = repuestoDeluxe1;
+		this.repuestoGenerico = repuestoGenerico1;
 		
 	}
 
@@ -48,7 +48,7 @@ public class Proveedor implements Serializable{
 		this.id = id;
 	}
 
-	public RepuestoDeluxe getRepuestosDeluxe() {
+	public Repuestos getRepuestosDeluxe() {
 		return repuestosDeluxe;
 	}
 
@@ -56,7 +56,7 @@ public class Proveedor implements Serializable{
 		this.repuestosDeluxe = repuestosDeluxe;
 	}
 
-	public RepuestoGenerico getRepuestoGenerico() {
+	public Repuestos getRepuestoGenerico() {
 		return repuestoGenerico;
 	}
 

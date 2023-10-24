@@ -1,5 +1,6 @@
 package uiMain;
 import cliente.*;
+import baseDatos.*;
 import taller_mecanica.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -11,18 +12,23 @@ import java.util.Set;
 public class Interfaz {
 	
 	 public static void main(String[] args) {
-
-	        Scanner scanner = new Scanner(System.in);
+		 	byte opcion;
+		 	Administrador admin = null;
+		    admin = Deserializador.deserializar();
+		    Scanner scanner = new Scanner(System.in);
+	        do{
+		 	
 	        System.out.println("Escoje una opción:");
 	        System.out.println("1. Solicitar un servicio");
 	        System.out.println("2. Realizar un servicio");
 	        System.out.println("3. Solicitar repuestos");
 	        System.out.println("4. Generar resumen financiero");
 	        System.out.println("5. Realizar encuesta");
+	        System.out.println("0.Salir");
 
-	        byte opcion = scanner.nextByte();
+	        opcion = scanner.nextByte();
 	        
-	        Administrador admin = new Administrador();
+	      
 	       
 
 	        switch (opcion) {
@@ -35,7 +41,7 @@ public class Interfaz {
 	                String repuesto = "";
 	                Clientes cliente = null;
 	    	       
-	    	        admin.verificarMecanicosDisponibles();
+	    	        
 	    	        Orden orden = null;
 	    	        int precio = 0;
 	    	      
@@ -58,10 +64,11 @@ public class Interfaz {
 	                            } else if (opcionVehiculo == 2) {
 	                                vehiculo = "Moto";
 	                            }
+	                            cliente = new Clientes(nombre, new Vehiculo(vehiculo, null));
 	                            paso++;
 	                            break;
 	                        case 3:
-	                            cliente = new Clientes(nombre, new Vehiculo(vehiculo, null));
+	                            
 	                            System.out.println("¿Que tipo de daño tiene su vehículo");
 	                            System.out.println("1.Motor");
 	                            System.out.println("2.Frenos");
@@ -70,30 +77,36 @@ public class Interfaz {
 	                            System.out.println("5.Carroceria");
 	                            byte opcion_tipo_daño = scanner.nextByte();
 	                            if(opcion_tipo_daño == 1) {
-	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Motor");
+	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Motor",admin);
 	                            }
 	                            else if(opcion_tipo_daño == 2) {
-	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Frenos");
+	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Frenos",admin);
 	                            }
 	                            else if(opcion_tipo_daño == 3) {
-	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Electrico");
+	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Electrico",admin);
 	                            }
 	                            else if(opcion_tipo_daño == 4) {
-	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Llantas");
+	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Llantas",admin);
 	                            }
 	                            else if(opcion_tipo_daño == 5) {
-	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Carroceria");
+	                            	cliente.getVehiculos().get(0).setTipoDeDanio("Carroceria",admin);
 	                            }
+	                            
+	                            System.out.println(cliente.getVehiculos().get(0).getTipoDeDanio().getTipo());
 	                            paso++;
 	                            break;
 	                        case 4:
+	                        	
 	                        	System.out.println("Que mecanico desea que realice su servicio");
-	                        	ArrayList<Mecanicos> mecanicos = admin.obtenerMecanicosAfines(vehiculo);
+	                        	ArrayList<Mecanicos> mecanicos = admin.verificarMecanicosDisponibles(vehiculo);
 	                        	for(int i = 0; i < mecanicos.size(); i++) {
 	                        		System.out.println(i + "." + mecanicos.get(i).getNombre());
 	                        	}
+	                        	System.out.println("Escriba el nombre");
 	                        	String nombre_mecanico = scanner.next();
 	                        	mecanico_asignado = admin.asignarMecanico(nombre_mecanico);
+	                        	mecanico_asignado.añadirCliente(cliente);
+	                        	admin.añadirCliente(cliente);
 	                        	paso++;
 	                        	break;
 	                        case 5:
@@ -114,8 +127,10 @@ public class Interfaz {
 	                        case 6:
 	                        	System.out.println("Estos son los repuestos disponibles");
 	                        	Set<String> claves = admin.getInventario().consultarRepuestos(categoria_repuesto,cliente.getVehiculos().get(0).getTipoDeDanio().getTipo());
+	                        	int i = 1;
 	                        	for (String clave : claves) {
-	                                System.out.println("1." + clave);
+	                                System.out.println(i + "."+ clave);
+	                                i++;
 	                            }
 	                        	
 	                        	byte opcion_repuesto = scanner.nextByte();
@@ -143,25 +158,32 @@ public class Interfaz {
 	                        	paso++;
 	                        	break;
 	                        case 7:
+	                        	
 	                        	System.out.println("Este es el resumen de su orden");
-	                        	if (vehiculo.equals("Moto") ) {
-	                        		precio = admin.getInventario().getServiciosMoto();
+	                        	if (vehiculo.equals("Moto") && categoria_repuesto.equals("Deluxe")) {
+	                        		precio = admin.getInventario().getPrecioMoto().getValor() + admin.getInventario().getRepuestosDeluxe().obtenerPrecio(repuesto, 
+	                        				cliente.getVehiculos().get(0).getTipoDeDanio().getTipo());
 	                        	}
-	                        	else if (vehiculo.equals("Carro")) {
-	                        		precio = admin.getInventario().getServiciosCarro();
-	                        	}
-	                        	
-	                        	if(categoria_repuesto.equals("Deluxe")) {
-	                        		precio = precio + admin.getInventario().getRepuestosDeluxe().obtenerPrecio(repuesto, 
+	                        	else if (vehiculo.equals("Carro") && categoria_repuesto.equals("Deluxe")) {
+	                        		precio = admin.getInventario().getPrecioCarro().getValor() + admin.getInventario().getRepuestosDeluxe().obtenerPrecio(repuesto, 
 	                        				cliente.getVehiculos().get(0).getTipoDeDanio().getTipo());
 	                        	}
 	                        	
-	                        	else if(categoria_repuesto.equals("Generico")) {
-	                        		precio = precio + admin.getInventario().getRepuestosGenericos().obtenerPrecio(repuesto, 
+	 
+	                        	
+	                        	else if(categoria_repuesto.equals("Generico") && vehiculo.equals("Moto")) {
+	                        		precio = admin.getInventario().getPrecioMoto().getValor() + admin.getInventario().getRepuestosGenericos().obtenerPrecio(repuesto, 
 	                        				cliente.getVehiculos().get(0).getTipoDeDanio().getTipo());
 	                        	}
+	                        	
+	                        	else if (vehiculo.equals("Carro") && categoria_repuesto.equals("Generico")) {
+	                        		precio = admin.getInventario().getPrecioCarro().getValor() + admin.getInventario().getRepuestosGenericos().obtenerPrecio(repuesto, 
+	                        				cliente.getVehiculos().get(0).getTipoDeDanio().getTipo());
+	                        	}
+	                        	System.out.println(precio);
 	                        	               			
 	                        	orden = cliente.crearOrden(cliente.getVehiculos().get(0), mecanico_asignado, admin, precio);
+	                        	System.out.println(orden);
 	                        	orden.setRepuesto(repuesto);
 	                        	
 	                        	System.out.println(orden.resumenOrden());
@@ -179,8 +201,9 @@ public class Interfaz {
 	                        	break;
 	                    }
 	                }
-
+	                opcion = scanner.nextByte();
 	                System.out.println("Gracias por solicitar un servicio");
+	                
 
 	                break; 
 	            case 2:
@@ -203,16 +226,9 @@ public class Interfaz {
 	            					
 	            				}
 	            				
-	            				String nombre_mecanico = scanner.next();
+	            				byte nombre_mecanico = scanner.nextByte();
 	            				
-	            				for(int i = 0; i < admin.mecanicosTrabajando().size(); i++) {
-	            					
-	            					if(admin.mecanicosTrabajando().get(i).getNombre().equals(nombre_mecanico)) {
-	            						mecanico = admin.mecanicosTrabajando().get(i);
-	            					}
-;
-	            					
-	            				}
+	            				mecanico = admin.mecanicosTrabajando().get(nombre_mecanico);
 	            				paso_2++;
 	            				break;
 	            			
@@ -251,10 +267,11 @@ public class Interfaz {
 	            					System.out.println("1.Paso5");
 	            				
 	            				int pasos = scanner.nextInt();
-	            				completado = mecanico.reparar(orden_reparar,pasos);
+	            				completado = mecanico.reparar(orden_reparar,pasos,admin);
 	            				if(completado) {
 	            					System.out.println("Usted ha reparado el vehiculo");
 	            					System.out.println("Has ganado" + 5000);
+	            					mecanico.recibirComision(5000);
 	            				}
 	            				else {
 	            					System.out.println("Has fallado y has generado otro tipo de daño");
@@ -277,8 +294,8 @@ public class Interfaz {
 	            				if (opcion_2_2 == 1) {
 	            					
 	            					for (int i = 0; i < mecanico.getOrdenesFinalizadas().size(); i++) {
-	            						System.out.println("Orden #" + i+1);
-	            						System.out.println(mecanico.getOrdenesFinalizadas().get(i).resumenOrden());
+	            						System.out.println("Orden #" + mecanico.getOrdenesFinalizadas().get(i).getId());
+	            						
 	            					}
 	            				}
 	            				else if(opcion_2_2 == 2) {
@@ -289,6 +306,7 @@ public class Interfaz {
 	            				break;
 	            		}
 	            	}
+	            	opcion = scanner.nextByte();
 	            	break;
 	            case 3:
 	            	
@@ -541,13 +559,14 @@ public class Interfaz {
 	            			
 	            				}
 	            	}
+	            	opcion = scanner.nextByte();
 	            	break;
 	            	
 	            case 4:
 	            	
 	            	int paso_4 = 1;
 	            	
-	            	while(paso_4 <= 7) {
+	            	while(paso_4 <= 10) {
 	            		
 	            		switch(paso_4) {
 	            			
@@ -569,13 +588,13 @@ public class Interfaz {
 	            				
 	            				else if(opcion_4 == 2) {
 	            					
-	            					paso_4 = paso_4 + 3;
+	            					paso_4 = paso_4 + 4;
 	            					
 	            				}
 	            				
 	            				else if(opcion_4 == 3) {
 	            					
-	            					paso_4 = paso_4 + 4;
+	            					paso_4 = paso_4 + 8;
 	            				}
 	            				
 	            				break;
@@ -605,9 +624,11 @@ public class Interfaz {
 	            				else if (opcion_4_1 == 2){
 	            					
 	            					System.out.println("Hasta pronto Admin");
+	            					paso_4 = paso_4 + 7;
 	            					break;
 	            					
 	            				}
+	            				
 	            				break;
 	            				
 	            			case 4:
@@ -634,7 +655,7 @@ public class Interfaz {
 	            				}
 	            				
 	            				System.out.println("Felicidades por ser un buen administrador");
-	            				paso_4++;
+	            				paso_4 = paso_4 + 6;
 	            				break;
 	            			
 	            			case 5:
@@ -675,7 +696,7 @@ public class Interfaz {
 	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Frenos");
 	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Electrico");
 	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Llantas");
-	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Carroceria");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Carroceria");
 	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Motor");
 	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Frenos");
 	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Electrico");
@@ -683,7 +704,7 @@ public class Interfaz {
 	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Carroceria");
 	            				
 	            				System.out.println("Has aumentado el precio de los repuestos");
-	            				paso_4++;
+	            				paso_4 = paso_4 + 3;
 	            				break;
 	            			
 	            			case 8:
@@ -711,7 +732,7 @@ public class Interfaz {
 	            				
 	            				
 	            				System.out.println("Disminuiste la comisión de tus mecanicos");
-	            				paso_4++;
+	            				paso_4 = paso_4 + 2;
 	            				break;
 	            			
 	            			case 9:
@@ -743,28 +764,166 @@ public class Interfaz {
 	            				System.out.println("Cartera final: " + admin.getInventario().getCartera_inicial());
 	            				System.out.println("Gastos: " + admin.getInventario().getGastos());
 	            				System.out.println("Ingresos: " + admin.getInventario().getIngresos());
+	            				System.out.println("Numero de ordenes: " + admin.numOrdenes());
+	            				System.out.println("Numero de mecanicos: " + admin.getMecanicos().size());
+	            				System.out.println("Servicio más rentable: " + admin.ordenMasRentable());
+	            				System.out.println("Servicio menos rentable: " + admin.ordenMenosRentable());
+	            				System.out.println("Calificacion del taller = " + admin.getCalificacionTaller());
 	            				
-	            				
-	            				
-	            				
-	            				
-	            				
-	            				
-	            				
+	            				paso_4++;
+	            				break;
+	            				}
+	            	}
+	            	
+	            	break;
+	            
+	            case 5:
+	            	
+	            	int paso_5 = 1;
+	            	Clientes cliente_5 = null;
+	            	Mecanicos mecanico_calificado = null;
+	            	
+	            	while(paso_5 <= 6) {
+	            		
+	            		switch(paso_5) {
+	            		case 1:
+	            			System.out.println("Bienvenido a la encuesta de UNtaller");
+	            			System.out.println("Cuál es tu nombre?");
 	            			
-	            								
+	            			String nombre_cliente = scanner.next();
+	            			
+	            			cliente_5 = admin.getClienteNombre(nombre_cliente);
+	            			paso_5++;
+	            			break;
+	            		
+	            		case 2:
+	            			
+	            			System.out.println("Que mecanico deseas calificar?");
+	            			
+	            			for(int i = 0; i < cliente_5.mecanicosActivosCliente().size(); i++) {
+	            				System.out.println(i + "." + cliente_5.mecanicosActivosCliente().get(i).getNombre());
+	            			}
+	            			
+	            			byte opcion_5 = scanner.nextByte();
+	            			
+	            			mecanico_calificado = cliente_5.mecanicosActivosCliente().get(opcion_5);
+	            			
+	            			paso_5++;
+	            			break;
+	            			
+	            		case 3:
+	            			
+	            			System.out.println("Que calificacion le deseas poner(1 a 5)?");
+	            			
+	            			byte calificacion = scanner.nextByte();
+	            			
+	            			cliente_5.calificarMecanico(mecanico_calificado, calificacion);
+	            			
+	            			System.out.println("Haz calificado al mecanico" + mecanico_calificado.getNombre());
+	            			paso_5++;
+	            			break;
+	            			
+	            		case 4:
+	            			
+	            			System.out.println("Como calificaria los repuestos usados en nuestro taller?");
+	            			
+	            			System.out.println("De 1 a 5");
+	            			
+	            			byte cal_repuesto = scanner.nextByte();
+	            			
+	            			if(cal_repuesto > 3) {
 	            				
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(1000, "Motor");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(1000, "Frenos");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(1000, "Electrico");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(1000, "Llantas");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(1000, "Carroceria");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(500, "Motor");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(500, "Frenos");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(500, "Electrico");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(500, "Llantas");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(500, "Carroceria");
 	            				
+	            				System.out.println("Gracias por calificar los repuestos");
 	            				
-	            				
-	            				
-	            				
-	            				
+	            			}
+	            			else {
+	            				System.out.println("Lamentamos que no te gusten nuestros repuestos");
+	            			}
+	            			
+	            			paso_5++;
+	            			break;
+	            			
+	            		case 5:
+	            			
+	            			System.out.println("Del 1 al 5 como calificarias nuestro taller?");
+	            			
+	            			byte cal_taller = scanner.nextByte();
+	            			
+	            			cliente_5.calificarTaller(admin, cal_taller);
+	            			
+	            			if(cal_taller > 3) {
+	            				System.out.println("Gracias por preferirnos");
+	            			}
+	            			else {
+	            				System.out.println("Trabajaremos por mejorar");
+	            			}
+	            			
+	            			paso_5++;
+	            			break;
+	            			
+	            		case 6:
+	            			
+	            			System.out.println("Deseas dejar una comisión al mecanico?");
+	            			System.out.println("1.Si");
+	            			System.out.println("2.No");
+	            			
+	            			byte opcion_comision = scanner.nextByte();
+	            			
+	            			if(opcion_comision == 1) {
+	            				System.out.println("Cuanto deseas dar de comisión");
+	            				int comision_meca = scanner.nextInt();
+	            				cliente_5.dejarComisionMecanico(mecanico_calificado, comision_meca);
+	            				System.out.println("Has completado la encuesta");
+	            			}
+	            			else {
+	            				System.out.println("Has completado la encuesta");
+	            			}
+	            			
+	            			paso_5++;
+	            			break;
+	            			
+	            			
+	            	
+	            			
+	            			
 	            			
 	            		}
 	            	}
+	            	opcion = scanner.nextByte();
+	            	break;
 	            	
+	            case 0:
+	            	break;
+	            	
+	            default:
+	                System.out.println("Opción no válida. Inténtalo de nuevo.");
+	                break;
+	        
 	        }
+	        
+	        if (opcion != 0) {
+	            
+	            System.out.println("¿Deseas realizar otra operación? (1 = Sí, 0 = No): ");
+	            byte continuar = scanner.nextByte();
+	            if (continuar == 0) {
+	                opcion = 0; 
+	            }
+	        }
+	        }while(opcion != 0);
+	        
+	       Serializador.serializar(admin);
 	    }
+	 
 	}
 

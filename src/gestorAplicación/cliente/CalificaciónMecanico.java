@@ -1,13 +1,15 @@
 package cliente;
 import taller_mecanica.Mecanicos;
+import java.util.ArrayList;
 import taller_mecanica.Administrador;
 
 public interface CalificaciónMecanico {
     
 	Mecanicos mecanicoSeleccionado(int seleccion);
-	void mecanicosActivosCliente();
+	ArrayList<Mecanicos> mecanicosActivosCliente();
 	void calificarMecanico(Mecanicos mecanico, int calificación);
     void dejarComisionMecanico(Mecanicos mecanico, int comision);
-    void despedirporEncuesta(Mecanicos mecanico, Administrador administrador);
+    
     void premiarPorEncuesta(Mecanicos mecanico, Administrador administrador);
+    void calificarTaller(Administrador admin, int calificación);
 }

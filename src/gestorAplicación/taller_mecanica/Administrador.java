@@ -2,6 +2,7 @@ package taller_mecanica;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.Serializable;
+import cliente.*;
 
 
 public class Administrador implements Serializable {
@@ -9,13 +10,17 @@ public class Administrador implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String nombre;
+	public String nombre;
 	protected int id;
-	protected ArrayList <Mecanicos> mecanicos = new ArrayList<>();
-	protected ArrayList <Proveedor> proveedores = new ArrayList<>();
-	protected Inventario inventario;
-	protected ArrayList <Orden> ordenes = new ArrayList<>();
-	protected ArrayList <Mecanicos> mecanicosDisponibles = new ArrayList<>();
+	private ArrayList <Mecanicos> mecanicos = new ArrayList<>();
+	private ArrayList <Proveedor> proveedores = new ArrayList<>();
+	private Inventario inventario;
+	private ArrayList <Orden> ordenes = new ArrayList<>();
+	private ArrayList <Mecanicos> mecanicosDisponibles = new ArrayList<>();
+	private int calificacionTaller;
+	private ArrayList<Integer> calificacionesTaller = new ArrayList<>();
+	private ArrayList<TipoDaño> tiposDaño = new ArrayList<>();
+	private ArrayList<Clientes> clientes = new ArrayList<>();
 	
 	
 	public Administrador(String nombre, int id, Inventario inventario) {
@@ -26,6 +31,10 @@ public class Administrador implements Serializable {
 	
 	public Administrador() {
 		
+	}
+	
+	public void añadirCliente(Clientes cliente) {
+		this.clientes.add(cliente);
 	}
 
 	public String getNombre() {
@@ -118,12 +127,12 @@ public class Administrador implements Serializable {
 	
 	public Mecanicos asignarMecanico(String nombre) {
 		
-		Mecanicos mecanicoElegido = mecanicosDisponibles.get(0);
-		for(int i = 0; i < mecanicosDisponibles.size(); i++) {
+		Mecanicos mecanicoElegido = mecanicos.get(0);
+		for(int i = 0; i < mecanicos.size(); i++) {
 			
-			if(mecanicosDisponibles.get(i).getNombre().equals(nombre)) {
+			if(mecanicos.get(i).getNombre().equals(nombre)) {
 				
-				mecanicoElegido = mecanicosDisponibles.get(i);
+				mecanicoElegido = mecanicos.get(i);
 				
 			}
 		}
@@ -134,16 +143,19 @@ public class Administrador implements Serializable {
 		
 	}
 	
-	public void verificarMecanicosDisponibles() {
+	public ArrayList<Mecanicos> verificarMecanicosDisponibles(String afinidad) {
+		
+		ArrayList<Mecanicos> mecas = new ArrayList<>();
 		
 		for(int i = 0; i < this.mecanicos.size(); i++) {
 			
-			if (this.mecanicos.get(i).getServiciosMax() > 0) {
+			if (this.mecanicos.get(i).getServiciosMax() > 0 && this.mecanicos.get(i).getAfinidad().equals(afinidad)) {
 				
-				this.mecanicosDisponibles.add(this.mecanicos.get(i));
+				mecas.add(this.mecanicos.get(i));
 				
 				}
 		}	
+		return mecas;
 	}
 	
 	public ArrayList<Mecanicos> mecanicosTrabajando(){
@@ -875,9 +887,9 @@ public void solicitarRepuestos(String categoria, String tipo, String repuesto, S
 	
 	public ArrayList<Mecanicos> obtenerMecanicosAfines(String afinidad){
 		ArrayList<Mecanicos> mecanicos = new ArrayList<>();
-		for(int i = 1; i < this.mecanicosDisponibles.size(); i++) {
+		for(int i = 0; i < this.mecanicosDisponibles.size(); i++) {
 				
-			if(this.mecanicos.get(i).getAfinidad() == afinidad) {
+			if(this.mecanicosDisponibles.get(i).getAfinidad() == afinidad) {
 				mecanicos.add(this.mecanicos.get(i));
 			}
 		}
@@ -1031,7 +1043,7 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 		
 		for(int i = 0; i < this.mecanicos.size(); i++) {
 			
-				this.getInventario().pagar(this.getInventario().getSalarioMecanico());
+				this.getInventario().pagar(this.getInventario().getSalarioMecanico().getValor());
 				
 				for(int e = 0; i < this.mecanicos.get(i).getOrdenes().size();e++) {
 					
@@ -1046,22 +1058,73 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 				}
 			}
 		
-		this.getInventario().pagar(this.getInventario().getSalarioAdmin());
+		this.getInventario().pagar(this.getInventario().getSalarioAdmin().getValor());
 		
-		this.getInventario().setCartera_inicial(this.getInventario().getCartera_inicial() - this.getInventario().getGastos() +
-				this.getInventario().getIngresos());
+		
 					
 		}
 		
 		
 		public int numOrdenes() {
 			
-			int numOrdenes = 0;
+			return this.getOrdenes().size();
 			
 			
 		}
 		
+		public ArrayList<Clientes> getClientes(){
+			return this.clientes;
+		}
+		
+		public Clientes getClienteNombre(String nombre) {
+			
+			Clientes cliente = null;
+			
+			for(int i = 0; i < this.getClientes().size();i++) {
+				
+				if(this.getClientes().get(i).getNombre().equals(nombre)) {
+					cliente = this.getClientes().get(i);
+				}
+				
+				
+			}
+			
+			return cliente;
+		}
+
+		public int getCalificacionTaller() {
+			return calificacionTaller;
+		}
+
+		public void setCalificacionTaller(int calificacionTaller) {
+			this.calificacionTaller = calificacionTaller;
+		}
+
+		public ArrayList<Integer> getCalificacionesTaller() {
+			return calificacionesTaller;
+		}
+
+		public void setCalificacionesTaller(ArrayList<Integer> calificacionesTaller) {
+			this.calificacionesTaller = calificacionesTaller;
+		}
+
+		public ArrayList<TipoDaño> getTiposDaño() {
+			return tiposDaño;
+		}
+
+		public void setTiposDaño(ArrayList<TipoDaño> tiposDaño) {
+			this.tiposDaño = tiposDaño;
+		}
+		
+		public void añadirTipoDaño(TipoDaño tipo) {
+			this.tiposDaño.add(tipo);
+		}
+
+		
+		
+		
 	}
+
 	
 	
 

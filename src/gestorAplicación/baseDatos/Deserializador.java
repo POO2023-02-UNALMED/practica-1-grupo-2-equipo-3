@@ -11,14 +11,15 @@ import cliente.*;
 public class Deserializador {
 
 	private static File rutaTemp = new File("src\\basedatos\\temp");
-    public static void main(String[] args) {
+    
+	public static Administrador deserializar(){
         File archivo = new File("src/gestorAplicación/baseDatos/admin.txt"); 
 
-
+        Administrador admin = null;
         try {
             FileInputStream fi = new FileInputStream(archivo);
             ObjectInputStream oi = new ObjectInputStream(fi);
-            Administrador admin = (Administrador) oi.readObject();
+            admin = (Administrador) oi.readObject();
             oi.close();
             fi.close();
 
@@ -31,5 +32,7 @@ public class Deserializador {
         } catch (ClassNotFoundException e) {
             System.err.println("Clase no encontrada: " + e.getMessage());
         }
+        
+        return admin;
     }
 }
