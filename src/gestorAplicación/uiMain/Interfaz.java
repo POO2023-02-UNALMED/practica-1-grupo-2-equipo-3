@@ -644,6 +644,114 @@ public class Interfaz {
 	            				
 	            				paso_4++;
 	            				break;
+	            			
+	            			case 6:
+	            				
+	            				System.out.println("Que deseas hacer respecto a tu orden menos rentable?");
+	            				
+	            				System.out.println("1.Aumentar precio de los repuestos");
+	            				System.out.println("2.Disminuir comisiones a los mecanicos");
+	            				
+	            				byte opcion_4_2 = scanner.nextByte();
+	            				
+	            				if(opcion_4_2 == 1) {
+	            					
+	            					paso_4 ++;
+	            					
+	            				}
+	            				
+	            				else if(opcion_4_2 == 2) {
+	            					paso_4 = paso_4 + 2;
+	            				}
+	            				break;
+	            				
+	            			case 7:
+	            				
+	            				System.out.println("En cuanto deseas aumentar el precio de los repuestos?");
+	            				
+	            				int aumento_repuesto = scanner.nextInt();
+	            				
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Motor");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Frenos");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Electrico");
+	            				admin.getInventario().getRepuestosDeluxe().aumentarPrecio(aumento_repuesto, "Llantas");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Carroceria");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Motor");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Frenos");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Electrico");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Llantas");
+	            				admin.getInventario().getRepuestosGenericos().aumentarPrecio(aumento_repuesto, "Carroceria");
+	            				
+	            				System.out.println("Has aumentado el precio de los repuestos");
+	            				paso_4++;
+	            				break;
+	            			
+	            			case 8:
+	            				
+	            				System.out.println("En cuanto deseas disminuir la comisión de tus mecanicos?");
+	            				
+	            				int comision_menos = scanner.nextInt();
+	            				
+	            				ArrayList<Mecanicos> mecanicosDisminuir = new ArrayList<>();
+	            				
+	            				if(admin.ordenMenosRentable().equals("Reparación de Carros")) {
+	            					
+	            					mecanicosDisminuir = admin.obtenerMecanicosAfines("Carro");
+	            				}
+	            
+	            				else if(admin.ordenMenosRentable().equals("Reparación de Motos")) {
+	            					
+	            					mecanicosDisminuir = admin.obtenerMecanicosAfines("Moto");
+	            				}
+	            				
+	            				for(int i = 0; i < mecanicosDisminuir.size(); i++) {
+	            					
+	            					mecanicosDisminuir.get(i).recibirComision(-comision_menos);
+	            				}
+	            				
+	            				
+	            				System.out.println("Disminuiste la comisión de tus mecanicos");
+	            				paso_4++;
+	            				break;
+	            			
+	            			case 9:
+	            				System.out.println("Bienvenido al resumen general de las finanzas de tu taller");
+	            				
+	            				System.out.println("Deseas calcular el resumen total?");
+	            				System.out.println("1.Si");
+	            				System.out.println("2.No");
+	            				
+	            				byte opcion_resumen = scanner.nextByte();
+	            				
+	            				if (opcion_resumen == 1) {
+	            					
+	            					paso_4++;
+	            				}
+	            				
+	            				else if(opcion_resumen == 2) {
+	            					
+	            					paso_4++;
+	            				}
+	            				
+	            				break;
+	            				
+	            			case 10:
+	            				
+	            				admin.finanzas();
+	            				System.out.println("Este es el resumen general de su taller");
+	            				System.out.println("");
+	            				System.out.println("Cartera final: " + admin.getInventario().getCartera_inicial());
+	            				System.out.println("Gastos: " + admin.getInventario().getGastos());
+	            				System.out.println("Ingresos: " + admin.getInventario().getIngresos());
+	            				
+	            				
+	            				
+	            				
+	            				
+	            				
+	            				
+	            				
+	            			
 	            								
 	            				
 	            				
