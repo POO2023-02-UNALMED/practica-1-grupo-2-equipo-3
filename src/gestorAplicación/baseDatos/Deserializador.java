@@ -10,7 +10,7 @@ import java.util.List;
 
 import taller_mecanica.*;
 
-
+//Esto me falta 
 public class Deserializador {
 	private static File rutaTemp = new File("src\\basedatos\\temp");
 	

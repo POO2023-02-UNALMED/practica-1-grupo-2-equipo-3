@@ -10,11 +10,14 @@ public class RepuestoDeluxe extends Repuestos implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Proveedor proveedor;
+	
+	private Proveedor proveedor;
+	
 	public RepuestoDeluxe() {
 		super();
 	}
 	public RepuestoDeluxe(Proveedor proveedor) {
+		super();
 		this.proveedor = proveedor;
 	}
 	

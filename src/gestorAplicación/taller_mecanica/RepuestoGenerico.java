@@ -11,11 +11,13 @@ public class RepuestoGenerico extends Repuestos implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Proveedor proveedor;
+	private Proveedor proveedor;
+	
 	public RepuestoGenerico() {
 		super();
 	}
 	public RepuestoGenerico(Proveedor proveedor) {
+		super();
 		this.proveedor = proveedor;
 	}
 	
