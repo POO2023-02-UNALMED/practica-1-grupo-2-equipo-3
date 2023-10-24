@@ -16,6 +16,8 @@ public class Orden implements Serializable {
 	protected Mecanicos mecanico;
 	protected Administrador admin;
 	protected String repuesto;
+	protected String tipo_repuesto;
+	protected String repuesto2;
 	protected static int asignadorId = 1;
 	protected boolean estado;
 	protected Vehiculo vehiculo;
@@ -175,25 +177,42 @@ public class Orden implements Serializable {
 	}
 	
 
-	public String resumenOrdenRepuestos(String tipoDañoRepuesto, String repuesto1) {
+	public String resumenOrdenRepuestos1(String tipoDañoRepuesto) {
 		
 		return "Orden: " + this.getTipo() + "\n" +
 				"Fecha: " + this.getFecha() + "\n" +
 				"OrdenId: " + this.getId() + "\n" +
 				"Repuesto usado para: " + tipoDañoRepuesto + "\n" + 
-				"Repuesto: " + repuesto1 + "\n" +
+				"Repuesto: " + this.getRepuesto() + "\n" +
 				"Precio: " + this.getPrecio();
 	}
 	
-	public String resumenOrdenRepuestos(String tipoDañoRepuesto, String repuesto1, String repuesto2) {
+	public String resumenOrdenRepuestos2(String tipoDañoRepuesto) {
 		
 		return "Orden: " + this.getTipo() + "\n" +
 				"Fecha: " + this.getFecha() + "\n" +
 				"OrdenId: " + this.getId() + "\n" +
 				"Repuesto usado para: " + tipoDañoRepuesto + "\n" + 
-				"Repuesto: " + repuesto1 + ", " + repuesto2 + "\n" +
+				"Repuesto: " + this.getRepuesto() + ", " + this.getRepuesto2() + "\n" +
 				"Precio: " + this.getPrecio();
 	}
+
+	public String getTipo_repuesto() {
+		return tipo_repuesto;
+	}
+
+	public void setTipo_repuesto(String tipo_repuesto) {
+		this.tipo_repuesto = tipo_repuesto;
+	}
+
+	public String getRepuesto2() {
+		return repuesto2;
+	}
+
+	public void setRepuesto2(String repuesto2) {
+		this.repuesto2 = repuesto2;
+	}
+	
 	
 	
 

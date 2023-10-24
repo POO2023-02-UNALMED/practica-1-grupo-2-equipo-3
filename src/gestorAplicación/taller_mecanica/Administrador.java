@@ -175,9 +175,9 @@ public class Administrador implements Serializable {
 		}
 	}
 	
-	public void ordenMasRentable(){
+	
 		
-	}
+
 	
 	public void generarResumenMasIngresosOpcion1(Orden ordenMasRentable, int aumento){
         ordenMasRentable.setPrecio(ordenMasRentable.getPrecio() + aumento);
@@ -199,7 +199,7 @@ public class Administrador implements Serializable {
 		mecanico.setComisiones(mecanico.getComisiones()+ aumento);
 	}
 	
-	public void ordenMenosRentable(){}
+	
 	
 	public void generarResumenMenosIngresosOpcion1(Orden ordenMenosRentable, int desaumento){
 		if(desaumento <= ordenMenosRentable.getPrecio()){
@@ -234,76 +234,498 @@ public class Administrador implements Serializable {
 		return ganancia;
 	}
 	
+	public String ordenMasRentable() {
+		
+		String tipo = "";
+		int gananciasCarro = 0;
+		int gananciasMoto = 0;
+		
+		for (int i = 0; i < this.ordenes.size();i++) {
+			
+			if(this.ordenes.get(i).getTipo().equals("Carro")) {
+				gananciasCarro = gananciasCarro + this.ordenes.get(i).getPrecio();
+			}
+			else if(this.ordenes.get(i).getTipo().equals("Moto")) {
+				
+				gananciasMoto = gananciasMoto + this.ordenes.get(i).getPrecio(); 
+			}
+			
+		}
+		
+		if(gananciasCarro > gananciasMoto) {
+			tipo = "Reparación de Carros";
+		}
+		else if(gananciasCarro < gananciasMoto) {
+			tipo = "Reparación de Motos";
+		}
+		
+		return tipo;
+	}
 	
-	public void solicitarRepuestos(String categoria, String tipo, String repuesto, int cantidad) {
+	public String ordenMenosRentable() {
+		
+		String tipo = "";
+		int gananciasCarro = 0;
+		int gananciasMoto = 0;
+		
+		for (int i = 0; i < this.ordenes.size();i++) {
+			
+			if(this.ordenes.get(i).getTipo().equals("Carro")) {
+				gananciasCarro = gananciasCarro + this.ordenes.get(i).getPrecio();
+			}
+			else if(this.ordenes.get(i).getTipo().equals("Moto")) {
+				
+				gananciasMoto = gananciasMoto + this.ordenes.get(i).getPrecio(); 
+			}
+			
+		}
+		
+		if(gananciasCarro > gananciasMoto) {
+			tipo = "Reparación de Motos";
+		}
+		else if(gananciasCarro < gananciasMoto) {
+			tipo = "Reparación de Carros";
+		}
+		
+		return tipo;
+	}
+	
+	
+	public void solicitarRepuestos(String categoria, String tipo, String repuesto, int cantidad, String proveedor_nombre) {
+		
+		Proveedor proveedor = null;
+		
+		for(int i = 0; i < this.getProveedores().size();i++) {
+			
+			if(proveedor_nombre.equals(this.getProveedores().get(i).getNombre())) {
+				proveedor = this.getProveedores().get(i);
+			}
+		}
+		
 		
 		if (categoria.equals("Deluxe")) {
 			
 			if (tipo.equals("Motor")) {
 				
-				for(int i = 0; i < this.proveedores.size(); i++) {
-				
 					int valor = this.getInventario().getRepuestosDeluxe().getRepuestosMotor().get(repuesto);
 					valor = valor + cantidad;
+					this.getInventario().getRepuestosDeluxe().repuestosMotor.put(repuesto, valor);
+					
+					int valor2 = proveedor.getRepuestosDeluxe().getRepuestosMotor().get(repuesto);
+					valor2 = valor2 - cantidad;
+					proveedor.getRepuestosDeluxe().repuestosMotor.put(repuesto, valor2);
 						
 					
-					}
+					
 				}
-			}
+			
 			
 			else if (tipo.equals("Frenos")) {
 				
-				for(int i = 0; i < this.proveedores.size(); i++) {
 				
-					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Pastilla de frenos") && 
-							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Liquido de frenos")){
+				
+				int valor = this.getInventario().getRepuestosDeluxe().getRepuestosFrenos().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosFrenos.put(repuesto, valor);
+				
+				int valor2 = proveedor.getRepuestosDeluxe().getRepuestosFrenos().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosFrenos.put(repuesto, valor2);
 					
 						
 					
-					}
+					
 				}
-			}
+			
 			
 			else if (tipo.equals("Electrico")) {
 				
-				for(int i = 0; i < this.proveedores.size(); i++) {
 				
-					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Bateria") &&
-							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Focos")){
+				
+				int valor = this.getInventario().getRepuestosDeluxe().getRepuestosElectrico().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosElectrico.put(repuesto, valor);
+			
+				int valor2 = proveedor.getRepuestosDeluxe().getRepuestosElectrico().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosElectrico.put(repuesto, valor2);
 					
 						
 					
-					}
-				}
 			}
+				
+			
 			
 			else if (tipo.equals("Llantas")) {
 		
-				for(int i = 0; i < this.proveedores.size(); i++) {
+				
 		
-					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Valvula") &&
-							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Tapa de la valvula")){
+				int valor = this.getInventario().getRepuestosDeluxe().getRepuestosLlantas().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosLlantas.put(repuesto, valor);
+				
+				int valor2 = proveedor.getRepuestosDeluxe().getRepuestosLlantas().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosLlantas.put(repuesto, valor2);
 			
 						
 			
-					}
+					
 				}
-			}
+			
 			
 			else if (tipo.equals("Carroceria")) {
+				
+				int valor = this.getInventario().getRepuestosDeluxe().getRepuestosCarroceria().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosCarroceria.put(repuesto, valor);
+				
+				int valor2 = proveedor.getRepuestosDeluxe().getRepuestosCarroceria().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosCarroceria.put(repuesto, valor2);
 		
-				for(int i = 0; i < this.proveedores.size(); i++) {
+				
+			
+			}
 		
-					if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Pintura") && 
-							this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Espejos")){
+		}
+		
+		else if (categoria.equals("Generico")) {
+			
+			if (tipo.equals("Motor")) {
+				
+					int valor = this.getInventario().getRepuestosGenericos().getRepuestosMotor().get(repuesto);
+					valor = valor + cantidad;
+					this.getInventario().getRepuestosGenericos().repuestosMotor.put(repuesto, valor);
+					
+					int valor2 = proveedor.getRepuestoGenerico().getRepuestosMotor().get(repuesto);
+					valor2 = valor2 - cantidad;
+					proveedor.getRepuestoGenerico().repuestosMotor.put(repuesto, valor2);
+						
+					
+					
+				}
+			
+			
+			else if (tipo.equals("Frenos")) {
+				
+				
+				
+				int valor = this.getInventario().getRepuestosGenericos().getRepuestosFrenos().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosFrenos.put(repuesto, valor);
+				
+				int valor2 = proveedor.getRepuestoGenerico().getRepuestosFrenos().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosFrenos.put(repuesto, valor2);
+					
+						
+					
+					
+				}
+			
+			
+			else if (tipo.equals("Electrico")) {
+				
+				
+				
+				int valor = this.getInventario().getRepuestosGenericos().getRepuestosElectrico().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosElectrico.put(repuesto, valor);
+			
+				int valor2 = proveedor.getRepuestoGenerico().getRepuestosElectrico().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosElectrico.put(repuesto, valor2);
+					
+						
+					
+			}
+				
+			
+			
+			else if (tipo.equals("Llantas")) {
+		
+				
+		
+				int valor = this.getInventario().getRepuestosGenericos().getRepuestosLlantas().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosLlantas.put(repuesto, valor);
+				
+				int valor2 = proveedor.getRepuestoGenerico().getRepuestosLlantas().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosLlantas.put(repuesto, valor2);
 			
 						
 			
-					}
+					
 				}
+			
+			
+			else if (tipo.equals("Carroceria")) {
+				
+				int valor = this.getInventario().getRepuestosGenericos().getRepuestosCarroceria().get(repuesto);
+				valor = valor + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosCarroceria.put(repuesto, valor);
+				
+				int valor2 = proveedor.getRepuestoGenerico().getRepuestosCarroceria().get(repuesto);
+				valor2 = valor2 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosCarroceria.put(repuesto, valor2);
+		
+				
+			
 			}
 		
+		}
 			
+		}
+	
+public void solicitarRepuestos(String categoria, String tipo, String repuesto, String repuesto2, int cantidad, String proveedor_nombre) {
+		
+		Proveedor proveedor = null;
+		
+		for(int i = 0; i < this.getProveedores().size();i++) {
+			
+			if(proveedor_nombre.equals(this.getProveedores().get(i).getNombre())) {
+				proveedor = this.getProveedores().get(i);
+			}
+		}
+		
+		
+		if (categoria.equals("Deluxe")) {
+			
+			if (tipo.equals("Motor")) {
+				
+					int valor1 = this.getInventario().getRepuestosDeluxe().getRepuestosMotor().get(repuesto);
+					valor1 = valor1 + cantidad;
+					this.getInventario().getRepuestosDeluxe().repuestosMotor.put(repuesto, valor1);
+					int valor2 = this.getInventario().getRepuestosDeluxe().getRepuestosMotor().get(repuesto2);
+					valor2 = valor2 + cantidad;
+					this.getInventario().getRepuestosDeluxe().repuestosMotor.put(repuesto2, valor2);
+					
+					int valor3 = proveedor.getRepuestosDeluxe().getRepuestosMotor().get(repuesto);
+					valor3 = valor3 - cantidad;
+					proveedor.getRepuestosDeluxe().repuestosMotor.put(repuesto, valor3);
+					int valor4 = proveedor.getRepuestosDeluxe().getRepuestosMotor().get(repuesto2);
+					valor4 = valor4 - cantidad;
+					proveedor.getRepuestosDeluxe().repuestosMotor.put(repuesto2, valor4);
+						
+					
+					
+				}
+			
+			
+			else if (tipo.equals("Frenos")) {
+				
+				
+				
+				int valor1 = this.getInventario().getRepuestosDeluxe().getRepuestosFrenos().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosFrenos.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosDeluxe().getRepuestosFrenos().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosFrenos.put(repuesto2, valor2);
+				
+				int valor3 = proveedor.getRepuestosDeluxe().getRepuestosFrenos().get(repuesto);
+				valor3 = valor3 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosFrenos.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestosDeluxe().getRepuestosFrenos().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosFrenos.put(repuesto2, valor4);
+					
+						
+					
+					
+				}
+			
+			
+			else if (tipo.equals("Electrico")) {
+				
+				
+				
+				int valor1 = this.getInventario().getRepuestosDeluxe().getRepuestosElectrico().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosElectrico.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosDeluxe().getRepuestosElectrico().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosElectrico.put(repuesto2, valor2);
+			
+				int valor3 = proveedor.getRepuestosDeluxe().getRepuestosElectrico().get(repuesto);
+				valor3 = valor3 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosElectrico.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestosDeluxe().getRepuestosElectrico().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosElectrico.put(repuesto2, valor4);
+					
+						
+					
+			}
+				
+			
+			
+			else if (tipo.equals("Llantas")) {
+		
+				
+		
+				int valor1 = this.getInventario().getRepuestosDeluxe().getRepuestosLlantas().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosLlantas.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosDeluxe().getRepuestosLlantas().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosLlantas.put(repuesto, valor2);
+				
+				int valor3 = proveedor.getRepuestosDeluxe().getRepuestosLlantas().get(repuesto);
+				valor3 = valor3 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosLlantas.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestosDeluxe().getRepuestosLlantas().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosLlantas.put(repuesto2, valor4);
+			
+						
+			
+					
+				}
+			
+			
+			else if (tipo.equals("Carroceria")) {
+				
+				int valor1 = this.getInventario().getRepuestosDeluxe().getRepuestosCarroceria().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosCarroceria.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosDeluxe().getRepuestosCarroceria().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosDeluxe().repuestosCarroceria.put(repuesto2, valor2);
+				
+				int valor3 = proveedor.getRepuestosDeluxe().getRepuestosCarroceria().get(repuesto);
+				valor3 = valor3 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosCarroceria.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestosDeluxe().getRepuestosCarroceria().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestosDeluxe().repuestosCarroceria.put(repuesto2, valor4);
+		
+				
+			
+			}
+		
+		}
+		
+		else if (categoria.equals("Generico")) {
+			
+			if (tipo.equals("Motor")) {
+				
+					int valor1 = this.getInventario().getRepuestosGenericos().getRepuestosMotor().get(repuesto);
+					valor1 = valor1 + cantidad;
+					this.getInventario().getRepuestosGenericos().repuestosMotor.put(repuesto, valor1);
+					int valor2 = this.getInventario().getRepuestosGenericos().getRepuestosMotor().get(repuesto2);
+					valor2 = valor2 + cantidad;
+					this.getInventario().getRepuestosGenericos().repuestosMotor.put(repuesto2, valor2);
+					
+					int valor3 = proveedor.getRepuestoGenerico().getRepuestosMotor().get(repuesto);
+					valor3 = valor3 - cantidad;
+					proveedor.getRepuestoGenerico().repuestosMotor.put(repuesto, valor3);
+					int valor4 = proveedor.getRepuestoGenerico().getRepuestosMotor().get(repuesto2);
+					valor4 = valor4 - cantidad;
+					proveedor.getRepuestoGenerico().repuestosMotor.put(repuesto2, valor4);
+						
+					
+					
+				}
+			
+			
+			else if (tipo.equals("Frenos")) {
+				
+				
+				
+				int valor1 = this.getInventario().getRepuestosGenericos().getRepuestosFrenos().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosFrenos.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosGenericos().getRepuestosFrenos().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosFrenos.put(repuesto2, valor2);
+				
+				int valor3 = proveedor.getRepuestoGenerico().getRepuestosFrenos().get(repuesto);
+				valor3 = valor3 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosFrenos.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestoGenerico().getRepuestosFrenos().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosFrenos.put(repuesto2, valor4);
+					
+						
+					
+					
+				}
+			
+			
+			else if (tipo.equals("Electrico")) {
+				
+				
+				
+				int valor1 = this.getInventario().getRepuestosGenericos().getRepuestosElectrico().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosElectrico.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosGenericos().getRepuestosElectrico().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosElectrico.put(repuesto2, valor2);
+			
+				int valor3 = proveedor.getRepuestoGenerico().getRepuestosElectrico().get(repuesto);
+				valor3 = valor3 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosElectrico.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestoGenerico().getRepuestosElectrico().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosElectrico.put(repuesto2, valor4);
+					
+					
+						
+					
+			}
+				
+			
+			
+			else if (tipo.equals("Llantas")) {
+		
+				
+		
+				int valor1 = this.getInventario().getRepuestosGenericos().getRepuestosLlantas().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosLlantas.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosGenericos().getRepuestosLlantas().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosLlantas.put(repuesto2, valor2);
+				
+				int valor3 = proveedor.getRepuestoGenerico().getRepuestosLlantas().get(repuesto);
+				valor3 = valor3 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosLlantas.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestoGenerico().getRepuestosLlantas().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosLlantas.put(repuesto2, valor4);
+			
+						
+			
+					
+				}
+			
+			
+			else if (tipo.equals("Carroceria")) {
+				
+				int valor1 = this.getInventario().getRepuestosGenericos().getRepuestosCarroceria().get(repuesto);
+				valor1 = valor1 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosCarroceria.put(repuesto, valor1);
+				int valor2 = this.getInventario().getRepuestosGenericos().getRepuestosCarroceria().get(repuesto2);
+				valor2 = valor2 + cantidad;
+				this.getInventario().getRepuestosGenericos().repuestosCarroceria.put(repuesto2, valor2);
+				
+				int valor3 = proveedor.getRepuestoGenerico().getRepuestosCarroceria().get(repuesto);
+				valor3 = valor3- cantidad;
+				proveedor.getRepuestoGenerico().repuestosCarroceria.put(repuesto, valor3);
+				int valor4 = proveedor.getRepuestoGenerico().getRepuestosCarroceria().get(repuesto2);
+				valor4 = valor4 - cantidad;
+				proveedor.getRepuestoGenerico().repuestosCarroceria.put(repuesto2, valor4);
+		
+		
+				
+			
+			}
+		
+		}
 			
 		}
 		
@@ -469,8 +891,8 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 			
 			for(int i = 0; i < this.proveedores.size(); i++) {
 			
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadMotor("Bujia")
-						&& this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadMotor("Filtro de aceite")){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadMotor("Bujia")
+						&& this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadMotor("Filtro de aceite")){
 				
 					proveedoresDisponibles.add(this.proveedores.get(i));
 				
@@ -482,8 +904,8 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 			
 			for(int i = 0; i < this.proveedores.size(); i++) {
 			
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Pastilla de frenos") && 
-						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos("Liquido de frenos")){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadFrenos("Pastilla de frenos") && 
+						this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadFrenos("Liquido de frenos")){
 				
 					proveedoresDisponibles.add(this.proveedores.get(i));
 				
@@ -495,8 +917,8 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 			
 			for(int i = 0; i < this.proveedores.size(); i++) {
 			
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Bateria") &&
-						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico("Focos")){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadElectrico("Bateria") &&
+						this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadElectrico("Focos")){
 				
 					proveedoresDisponibles.add(this.proveedores.get(i));
 				
@@ -508,8 +930,8 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 	
 			for(int i = 0; i < this.proveedores.size(); i++) {
 	
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Valvula") &&
-						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas("Tapa de la valvula")){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadLlantas("Valvula") &&
+						this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadLlantas("Tapa de la valvula")){
 		
 					proveedoresDisponibles.add(this.proveedores.get(i));
 		
@@ -521,8 +943,8 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 	
 			for(int i = 0; i < this.proveedores.size(); i++) {
 	
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Pintura") && 
-						this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria("Espejos")){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadCarroceria("Pintura") && 
+						this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadCarroceria("Espejos")){
 		
 					proveedoresDisponibles.add(this.proveedores.get(i));
 		
@@ -542,7 +964,7 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 			
 			for(int i = 0; i < this.proveedores.size(); i++) {
 			
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadMotor(clave)){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadMotor(clave)){
 				
 					proveedoresDisponibles.add(this.proveedores.get(i));
 				
@@ -554,7 +976,7 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 			
 			for(int i = 0; i < this.proveedores.size(); i++) {
 			
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadFrenos(clave)){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadFrenos(clave)){
 				
 					proveedoresDisponibles.add(this.proveedores.get(i));
 				
@@ -566,7 +988,7 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 			
 			for(int i = 0; i < this.proveedores.size(); i++) {
 			
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadElectrico(clave)){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadElectrico(clave)){
 				
 					proveedoresDisponibles.add(this.proveedores.get(i));
 				
@@ -578,7 +1000,7 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 	
 			for(int i = 0; i < this.proveedores.size(); i++) {
 	
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadLlantas(clave)){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadLlantas(clave)){
 		
 					proveedoresDisponibles.add(this.proveedores.get(i));
 		
@@ -590,7 +1012,7 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 	
 			for(int i = 0; i < this.proveedores.size(); i++) {
 	
-				if (this.proveedores.get(i).getRepuestosDeluxe().verificarDisponibilidadCarroceria(clave)){
+				if (this.proveedores.get(i).getRepuestoGenerico().verificarDisponibilidadCarroceria(clave)){
 		
 					proveedoresDisponibles.add(this.proveedores.get(i));
 		
@@ -600,6 +1022,8 @@ public ArrayList<Proveedor> proveedoresDisponiblesRepuestosGenerico(String tipo)
 		
 		return proveedoresDisponibles;
 	}
+	
+	
 	
 
 }

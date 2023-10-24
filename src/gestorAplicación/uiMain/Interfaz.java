@@ -293,11 +293,366 @@ public class Interfaz {
 	            case 3:
 	            	
 	            	int paso_3 = 1;
+	            	String categoria = "";
+	            	String tipo_repuesto = "";
+	            	ArrayList<String> repuestos = new ArrayList<>();
+	            	ArrayList<String> carrito = new ArrayList<>();
+	            	ArrayList<Proveedor> proveedor_lista = new ArrayList<>();
+	            	String nombre_proveedor = "";
+	            	Orden orden_repuesto = null;
+	            	int precio_2 = 0;
 	            	
-	            	while(paso_3 <= 6) {
+	            	while(paso_3 <= 7) {
 	            		
-	            		switch(paso_3) {
+	            			switch(paso_3){
+	            				
+	            				case 1:
+	            					System.out.println("Hola Administrador");
+	            					System.out.println("Que categoria de repuesto deseas solicitar?");
+	            					System.out.println("1.Deluxe");
+	            					System.out.println("2.Generico");
+	            					
+	            					byte opcion_3 = scanner.nextByte();
+	            					
+	            					if(opcion_3 == 1) {
+	            						categoria = "Deluxe";
+	            					}
+	            					else if(opcion_3 == 2) {
+	            						categoria = "Generico";
+	            					}
+	            					paso_3++;
+	            					break;
+	            				
+	            				case 2:
+	            					System.out.println("Para que tipo de daño deseas solicitar el repuesto?");
+	            					System.out.println("1.Motor");
+	            					System.out.println("2.Frenos");
+	            					System.out.println("3.Electrico");
+	            					System.out.println("4.Llantas");
+	            					System.out.println("5.Carroceria");
+	            					
+	            					byte opcion_3_1 = scanner.nextByte();
+	            					
+	            					if(opcion_3_1 == 1) {
+	            						tipo_repuesto = "Motor";
+	            					}
+	            					else if(opcion_3_1 == 2) {
+	            						tipo_repuesto = "Frenos";
+	            					}
+	            					else if(opcion_3_1 == 3) {
+	            						tipo_repuesto = "Electrico";
+	            					}
+	            					else if(opcion_3_1 == 4) {
+	            						tipo_repuesto = "Llantas";
+	            					}
+	            					else if(opcion_3_1 == 5) {
+	            						tipo_repuesto = "Carroceria";
+	            					}
+	            					
+	            					paso_3++;
+	    
+	            					break;
+	            					
+	            				case 3:
+	            					
+	            					System.out.println("Escoja 1 o 2 repuestos");
+	            					
+	            					
+	            					
+	            					
+	            					if (categoria.equals("Deluxe")) {
+	            						
+	            						for(int i = 0; i < admin.getInventario().getRepuestosDeluxe().repuestosDisponibles(tipo_repuesto).size();i++) {
+	            							
+	            							System.out.println(i + "." + admin.getInventario().getRepuestosDeluxe().repuestosDisponibles(tipo_repuesto).get(i));
+	            							repuestos = admin.getInventario().getRepuestosDeluxe().repuestosDisponibles(tipo_repuesto);
+	            							
+	            						}
+	            					}
+	            					
+	            					else if(categoria.equals("Generico")) {
+	            						
+	            						for(int i = 0; i < admin.getInventario().getRepuestosGenericos().repuestosDisponibles(tipo_repuesto).size();i++) {
+	            							
+	            							System.out.println(i + "." + admin.getInventario().getRepuestosGenericos().repuestosDisponibles(tipo_repuesto).get(i));
+	            							repuestos = admin.getInventario().getRepuestosGenericos().repuestosDisponibles(tipo_repuesto);
+	            						}
+	            						
+	            					}
+	            					
+	            					int cant = 0;
+	            					
+	            					while(cant == 0) {
+	            						
+	            						if(carrito.size() == 2) {
+	            							break;
+	            						}
+	            						else {
+	            							byte articulo = scanner.nextByte();
+	            							carrito.add(repuestos.get(articulo));
+	            						
+	            							System.out.println("Pulsa 1 para terminar la compra");
+	            							System.err.println("Pulsa 0 para terminar la compra");
+	            						
+	            							byte new_cant = scanner.nextByte();
+	            							cant = new_cant;
+	            						}
+	            						
+	            					}
+	            					
+	            					paso_3++;
+	            					break;
+	            					
+	            					
+	            				case 4:
+	            					
+	            					System.out.println("A que proveedor deseas pedir repuestos?");
+	            					
+	            					if(categoria.equals("Deluxe") && carrito.size() == 1) {
+	            						
+	            						for(int i = 0; i < admin.proveedoresDisponiblesRepuestosDeluxe(tipo_repuesto, carrito.get(0)).size(); i++) {
+	            							
+	            							System.out.println(i + "." + admin.proveedoresDisponiblesRepuestosDeluxe(tipo_repuesto, carrito.get(0)).get(i).getNombre());
+	            							proveedor_lista = admin.proveedoresDisponiblesRepuestosDeluxe(tipo_repuesto, carrito.get(0));
+	            						}
+	            					}
+	            					
+	            					else if (categoria.equals("Deluxe") && carrito.size() == 2) {
+	            						
+	            						for(int i = 0; i < admin.proveedoresDisponiblesRepuestosDeluxe(tipo_repuesto).size(); i++) {
+	            							
+	            							System.out.println(i + "." + admin.proveedoresDisponiblesRepuestosDeluxe(tipo_repuesto).get(i).getNombre());
+	            							proveedor_lista = admin.proveedoresDisponiblesRepuestosDeluxe(tipo_repuesto);
+	            						}
+	            					}
+	            					
+	            					else if (categoria.equals("Generico") && carrito.size() == 1) {
+	            						
+	            						for(int i = 0; i < admin.proveedoresDisponiblesRepuestosGenerico(tipo_repuesto,carrito.get(0)).size(); i++) {
+	            							
+	            							System.out.println(i + "." + admin.proveedoresDisponiblesRepuestosGenerico(tipo_repuesto,carrito.get(0)).get(i).getNombre());
+	            							proveedor_lista = admin.proveedoresDisponiblesRepuestosGenerico(tipo_repuesto,carrito.get(0));
+	            						}
+	            					}
+	            					
+	            					else if (categoria.equals("Deluxe") && carrito.size() == 2) {
+	
+	            						for(int i = 0; i < admin.proveedoresDisponiblesRepuestosGenerico(tipo_repuesto).size(); i++) {
+		
+	            							System.out.println(i + "." + admin.proveedoresDisponiblesRepuestosGenerico(tipo_repuesto).get(i).getNombre());
+	            							proveedor_lista = admin.proveedoresDisponiblesRepuestosGenerico(tipo_repuesto);
+	            						}
+	            					}
+	            					
+	            					
+	            					byte opcion_proveedor = scanner.nextByte();
+	            					
+	            					nombre_proveedor = proveedor_lista.get(opcion_proveedor).getNombre();
+	            					
+	            					paso_3++;
+	            					break;
+	            			
+	            				case 5:
+	            					System.out.println("Ingrese la cantidad de repuestos que desea pedir");
+	            					
+	            					short cantidad_repuestos = scanner.nextShort();
+	            					
+	            					if (carrito.size() == 1) {
+	            						
+	            						admin.solicitarRepuestos(categoria, tipo_repuesto, carrito.get(0), cantidad_repuestos, nombre_proveedor);
+	            					}
+	            					
+	            					else if(carrito.size() == 2) {
+	            						
+	            						admin.solicitarRepuestos(categoria, tipo_repuesto, carrito.get(0), carrito.get(1), cantidad_repuestos, nombre_proveedor);
+	            					}
+	            					
+	            					if (carrito.size() == 1 && categoria.equals("Deluxe")) {
+	            						
+	            						int precio_rep = proveedor_lista.get(0).getRepuestosDeluxe().obtenerPrecio(carrito.get(0), tipo_repuesto);
+	            						precio_2 = precio_2 + (precio_rep * cantidad_repuestos);
+	            					}
+	            					
+	            					else if (carrito.size() == 2 && categoria.equals("Deluxe")) {
+	            						
+	            						int precio_rep = proveedor_lista.get(0).getRepuestosDeluxe().obtenerPrecio(carrito.get(0), tipo_repuesto);
+	            						int precio_rep2 = proveedor_lista.get(0).getRepuestosDeluxe().obtenerPrecio(carrito.get(1), tipo_repuesto);
+	            						precio_2 = precio_2 + (precio_rep * cantidad_repuestos + precio_rep2 * cantidad_repuestos);
+	            
+	            					}
+	            					else if (carrito.size() == 1 && categoria.equals("Generico")) {
+	            						
+	            						int precio_rep = proveedor_lista.get(0).getRepuestoGenerico().obtenerPrecio(carrito.get(0), tipo_repuesto);
+	            						precio_2 = precio_2 + (precio_rep * cantidad_repuestos);
+	            
+	            					}
+	            					
+	            					else if (carrito.size() == 2 && categoria.equals("Generico")) {
+	
+	            						int precio_rep = proveedor_lista.get(0).getRepuestoGenerico().obtenerPrecio(carrito.get(0), tipo_repuesto);
+	            						int precio_rep2 = proveedor_lista.get(0).getRepuestoGenerico().obtenerPrecio(carrito.get(1), tipo_repuesto);
+	            						precio_2 = precio_2 + (precio_rep * cantidad_repuestos + precio_rep2 * cantidad_repuestos);
+
+	            					}
+	            					
+	            					paso_3++;
+	            					
+	            					
+	            					break;
+	            					
+	            				case 6:
+	            					
+	            					orden_repuesto = new Orden("Repuestos", precio_2);
+	            					
+	            					if(carrito.size() == 1) {
+	            						orden_repuesto.setRepuesto(carrito.get(0));
+	            						System.out.println("Este es el resumen de su orden");
+	            						orden_repuesto.resumenOrdenRepuestos1(tipo_repuesto);
+	            					}
+	            					
+	            					else if(carrito.size() == 2) {
+	            						orden_repuesto.setRepuesto(carrito.get(0));
+	            						orden_repuesto.setRepuesto2(carrito.get(1));
+	            						System.out.println("Este es el resumen de su orden");
+	            						orden_repuesto.resumenOrdenRepuestos2(tipo_repuesto);
+	            					}
+	            					
+	            					paso_3++;
+	            					break;
+	            					
+	            				case 7:
+	            					
+	            					System.out.println("En total son: " + precio_2);
+	            					
+	            					System.out.println("1.pagar");
+	            					
+	            					byte pagar = scanner.nextByte();
+	            					
+	            					if (pagar == 1) {
+	            						
+	            						admin.getInventario().pagar(precio_2);
+	            					}
+	            					
+	            					System.out.println("0 para salir");
+	            					System.out.println("1 para volver al menú principal");
+	            					
+	            					paso_3++;
+	            					break;
+	            			
+	            				}
+	            	}
+	            	break;
+	            	
+	            case 4:
+	            	
+	            	int paso_4 = 1;
+	            	
+	            	while(paso_4 <= 7) {
 	            		
+	            		switch(paso_4) {
+	            			
+	            			case 1:
+	            				
+	            				System.out.println("Bienvenido a la gestion financiera de UNtaller");
+	            				System.out.println("Que deseas hacer?");
+	            				System.out.println("1.Generar resumen del servicio con más ingresos");
+	            				System.out.println("2.Generar resumen del servicio con menos ingresos");
+	            				System.out.println("3.Generar resumen total");
+	            				
+	            				byte opcion_4 = scanner.nextByte();
+	            				
+	            				if(opcion_4 == 1) {
+	            					
+	            					paso_4++;
+	           
+	            				}
+	            				
+	            				else if(opcion_4 == 2) {
+	            					
+	            					paso_4 = paso_4 + 3;
+	            					
+	            				}
+	            				
+	            				else if(opcion_4 == 3) {
+	            					
+	            					paso_4 = paso_4 + 4;
+	            				}
+	            				
+	            				break;
+	            			
+	            			case 2:
+	            				
+	            				System.out.println("Este fue el servicio que más genero ingresos en su taller");
+	            				
+	            				System.out.println(admin.ordenMasRentable());
+	            				
+	            				paso_4++;
+	            				break;
+	            				
+	            			case 3:
+	            				
+	            				System.out.println("Ya que tu servicio obtuvo tan buenos resultados...");
+	            				System.out.println("Deseas darle una comisión extra a tus mecanicos?");
+	            				
+	            				System.out.println("1.Si");
+	            				System.out.println("2.No");
+	            				
+	            				byte opcion_4_1 = scanner.nextByte();
+	            				
+	            				if(opcion_4_1 == 1) {
+	            					paso_4++;
+	            				}
+	            				else if (opcion_4_1 == 2){
+	            					
+	            					System.out.println("Hasta pronto Admin");
+	            					break;
+	            					
+	            				}
+	            				break;
+	            				
+	            			case 4:
+	            				
+	            				System.out.println("Que comisión deseas dar?");
+	            				
+	            				int comision = scanner.nextInt();
+	            				
+	            				ArrayList<Mecanicos> mecanicosAumentar = new ArrayList<>();
+	            				
+	            				if(admin.ordenMasRentable().equals("Reparación de Carros")) {
+	            					
+	            					mecanicosAumentar = admin.obtenerMecanicosAfines("Carro");
+	            				}
+	            
+	            				else if(admin.ordenMasRentable().equals("Reparación de Motos")) {
+	            					
+	            					mecanicosAumentar = admin.obtenerMecanicosAfines("Moto");
+	            				}
+	            				
+	            				for(int i = 0; i < mecanicosAumentar.size(); i++) {
+	            					
+	            					mecanicosAumentar.get(i).recibirComision(comision);
+	            				}
+	            				
+	            				System.out.println("Felicidades por ser un buen administrador");
+	            				paso_4++;
+	            				break;
+	            			
+	            			case 5:
+	            				
+	            				System.out.println("Este fue tu servicio menos rentable");
+	            				System.out.println(admin.ordenMenosRentable());
+	            				
+	            				paso_4++;
+	            				break;
+	            								
+	            				
+	            				
+	            				
+	            				
+	            				
+	            				
+	            				
+	            			
 	            		}
 	            	}
 	            	

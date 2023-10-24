@@ -12,6 +12,8 @@ import taller_mecanica.Administrador;
 public class Serializador {
 	private static File rutaTemp = new File("src\\gestorAplicación\\baseDatos\\temp");
 	
+	
+	
 	public static void serializar(Administrador admin){
 		FileOutputStream fos;
 		ObjectOutputStream oos;

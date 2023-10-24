@@ -1,10 +1,8 @@
 package taller_mecanica;
-
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.io.Serializable;
-
 
 
 public class Inventario implements Serializable{
@@ -16,6 +14,7 @@ public class Inventario implements Serializable{
 	protected RepuestoGenerico repuestosGenericos;
 	protected int ingresos;
 	protected int gastos;
+	protected int cartera_inicial = 100000;
 	protected boolean estado;
 	protected int serviciosCarro;
 	protected int serviciosMoto;
@@ -24,10 +23,10 @@ public class Inventario implements Serializable{
 	protected int salarioMecanico = PreciosBase.SALARIOMECANICO.getValor();
 	protected int salarioAdmin = PreciosBase.SALARIOADMINISTRADOR.getValor();
 	
-	public Inventario(Administrador admin, RepuestoDeluxe repuestosDeluxe,
+	public Inventario(RepuestoDeluxe repuestosDeluxe,
 			RepuestoGenerico repuestosGenericos) {
 		
-		this.admin = admin;
+		
 		this.repuestosDeluxe = repuestosDeluxe;
 		this.repuestosGenericos = repuestosGenericos;
 		
@@ -207,7 +206,11 @@ public class Inventario implements Serializable{
 	}
 	
 	
-	
+	public void pagar(int precio) {
+		
+		this.cartera_inicial = this.cartera_inicial - precio;
+		this.gastos = this.gastos + precio;
+	}
 	
 	
 	

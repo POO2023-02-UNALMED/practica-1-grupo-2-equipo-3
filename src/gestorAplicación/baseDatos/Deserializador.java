@@ -14,6 +14,9 @@ import taller_mecanica.*;
 public class Deserializador {
 	private static File rutaTemp = new File("src\\basedatos\\temp");
 	
+	
+	
+	
 	public static void deserializar(Administrador admin){
 		File[] docs = rutaTemp.listFiles();
 		FileInputStream fis; 
