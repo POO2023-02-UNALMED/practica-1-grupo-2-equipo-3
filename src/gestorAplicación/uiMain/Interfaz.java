@@ -201,7 +201,7 @@ public class Interfaz {
 	                        	break;
 	                    }
 	                }
-	                opcion = scanner.nextByte();
+	                
 	                System.out.println("Gracias por solicitar un servicio");
 	                
 
@@ -261,16 +261,16 @@ public class Interfaz {
 	            				while(completado == false) {
 	            					System.out.println("Escriba el orden de los pasos a realizar");
 	            					System.out.println("1.Paso1");
-	            					System.out.println("1.Paso2");
-	            					System.out.println("1.Paso3");
-	            					System.out.println("1.Paso4");
-	            					System.out.println("1.Paso5");
+	            					System.out.println("2.Paso2");
+	            					System.out.println("3.Paso3");
+	            					System.out.println("4.Paso4");
+	            					System.out.println("5.Paso5");
 	            				
 	            				int pasos = scanner.nextInt();
 	            				completado = mecanico.reparar(orden_reparar,pasos,admin);
 	            				if(completado) {
 	            					System.out.println("Usted ha reparado el vehiculo");
-	            					System.out.println("Has ganado" + 5000);
+	            					System.out.println("Has ganado " + 5000);
 	            					mecanico.recibirComision(5000);
 	            				}
 	            				else {
@@ -306,7 +306,7 @@ public class Interfaz {
 	            				break;
 	            		}
 	            	}
-	            	opcion = scanner.nextByte();
+	            	
 	            	break;
 	            case 3:
 	            	
@@ -559,7 +559,7 @@ public class Interfaz {
 	            			
 	            				}
 	            	}
-	            	opcion = scanner.nextByte();
+	            	
 	            	break;
 	            	
 	            case 4:
@@ -900,7 +900,7 @@ public class Interfaz {
 	            			
 	            		}
 	            	}
-	            	opcion = scanner.nextByte();
+	            	
 	            	break;
 	            	
 	            case 0:

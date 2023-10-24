@@ -149,14 +149,14 @@ public class Mecanicos implements Serializable{
 		
 		int claveMotor1 = 15432;
 		int claveMotor2 = 12354;
-		int claveFrenos1 = 15432;
+		int claveFrenos1 = 13425;
 		int claveFrenos2 = 12354;
-		int claveElectrico1 = 15432;
-		int claveElectrico2 = 12354;
-		int claveCarroceria1 = 15432;
-		int claveCarroceria2 = 12354;
-		int claveLlantas1 = 15432;
-		int claveLlantas2 = 12354;
+		int claveElectrico1 = 13245;
+		int claveElectrico2 = 45123;
+		int claveCarroceria1 = 14532;
+		int claveCarroceria2 = 12453;
+		int claveLlantas1 = 52431;
+		int claveLlantas2 = 12543;
 		String completado = "";
 		
 		if(orden.getVehiculo().getTipoDeDanio().getTipo().equals("Motor")) {
